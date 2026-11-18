@@ -1,0 +1,476 @@
+{% extends "base.html" %}
+
+{% block title %}About House Price Prediction AI — PropValuate AI{% endblock %}
+{% block breadcrumb %}About Project{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- ================= 1. HERO SECTION ================= -->
+    <section class="card border-0 shadow-sm rounded-4 overflow-hidden mb-5" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <div class="row g-0 align-items-center">
+            <div class="col-lg-7 p-4 p-md-5 text-white">
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 fw-semibold mb-3">
+                    <i class="bi bi-cpu-fill me-1"></i> Machine Learning Real Estate Intelligence
+                </span>
+                <h1 class="display-6 fw-bold mb-3 text-white">About House Price Prediction AI</h1>
+                <p class="lead text-white-50 mb-4" style="font-size: 1.05rem; line-height: 1.6;">
+                    PropValuate AI is a high-precision real estate analytics and valuation platform designed to estimate residential property prices with algorithmic objectivity. Combining state-of-the-art Gradient Boosting Machine Learning with robust PostgreSQL data architecture and interactive location intelligence.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2 shadow">
+                        <i class="bi bi-calculator-fill"></i> Explore AI Prediction
+                    </a>
+                    <a href="{{ url_for('page_analytics') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-pie-chart-fill"></i> View Market Analytics
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5 p-4 d-none d-lg-block text-center">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+                     alt="Modern Architecture" 
+                     class="img-fluid rounded-4 shadow-lg border border-secondary border-opacity-25" 
+                     style="max-height: 320px; width: 100%; object-fit: cover;">
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 2. ABOUT THE PROJECT ================= -->
+    <section class="mb-5">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <div class="p-4 p-xl-5 card custom-card h-100 border-0 shadow-sm">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span class="badge bg-primary rounded-pill px-3 py-1">The Mission</span>
+                    </div>
+                    <h2 class="fw-bold mb-3 text-dark">Data-Driven Precision in Residential Real Estate</h2>
+                    <p class="text-muted" style="line-height: 1.7;">
+                        Determining the fair market value of residential real estate has traditionally been obscured by fragmented broker listings, speculative pricing, and emotional bias.
+                    </p>
+                    <p class="text-muted" style="line-height: 1.7;">
+                        <strong>House Price Prediction AI</strong> bridges this gap by deploying multi-variable regression pipelines that synthesize architectural parameters (carpet area, bedrooms, bathrooms, floors, parking, age) with geographic micro-market premiums (localities in Ahmedabad like Bopal, Satellite, and top Indian metros) to deliver transparent, institutional-grade valuation models.
+                    </p>
+                    <div class="d-flex align-items-center gap-3 mt-4 pt-3 border-top">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                            <span class="small fw-semibold">Audited PostgreSQL Persistence</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success fs-5"></i>
+                            <span class="small fw-semibold">INR (₹) Valuation Formatting</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="card custom-card p-4 border-0 shadow-sm text-center h-100">
+                            <div class="display-6 fw-bold text-primary mb-1">92.0%</div>
+                            <div class="fw-semibold text-dark">Model Accuracy (R²)</div>
+                            <div class="small text-muted mt-1">Cross-validated Gradient Boosting Regressor</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card custom-card p-4 border-0 shadow-sm text-center h-100">
+                            <div class="display-6 fw-bold text-success mb-1">&lt; 50ms</div>
+                            <div class="fw-semibold text-dark">Inference Latency</div>
+                            <div class="small text-muted mt-1">Real-time valuation calculation</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card custom-card p-4 border-0 shadow-sm text-center h-100">
+                            <div class="display-6 fw-bold text-info mb-1">12+</div>
+                            <div class="fw-semibold text-dark">Interactive Charts</div>
+                            <div class="small text-muted mt-1">Chart.js dynamic visual insights</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card custom-card p-4 border-0 shadow-sm text-center h-100">
+                            <div class="display-6 fw-bold text-warning mb-1">100%</div>
+                            <div class="fw-semibold text-dark">Transparent Analytics</div>
+                            <div class="small text-muted mt-1">Honest confidence scoring & bounds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 3. PROJECT OBJECTIVES ================= -->
+    <section class="card custom-card p-4 p-md-5 border-0 shadow-sm mb-5">
+        <div class="text-center max-w-700 mx-auto mb-4">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold">Platform Goals</span>
+            <h2 class="fw-bold mt-2 mb-2">Core Project Objectives</h2>
+            <p class="text-muted small">Five engineering benchmarks driving the development of PropValuate AI.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="d-flex gap-3">
+                    <div class="badge bg-primary p-3 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                        <i class="bi bi-calculator fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">1. Estimate Property Prices</h5>
+                        <p class="small text-muted mb-0">Deliver reliable residential market valuations based on physical features, structural condition, and micro-market variables.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="d-flex gap-3">
+                    <div class="badge bg-info p-3 rounded-3 d-flex align-items-center justify-content-center text-white" style="width: 48px; height: 48px;">
+                        <i class="bi bi-geo-alt fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">2. Location Intelligence</h5>
+                        <p class="small text-muted mb-0">Quantify location premiums across Ahmedabad (Bopal, Satellite, Prahlad Nagar) and peer Indian urban centers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="d-flex gap-3">
+                    <div class="badge bg-success p-3 rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                        <i class="bi bi-intersect fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">3. Multi-Entity Comparison</h5>
+                        <p class="small text-muted mb-0">Enable side-by-side comparison between individual properties and entire metropolitan housing markets.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-md-4">
+                <div class="d-flex gap-3">
+                    <div class="badge bg-warning p-3 rounded-3 d-flex align-items-center justify-content-center text-dark" style="width: 48px; height: 48px;">
+                        <i class="bi bi-bar-chart-line fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">4. Data-Driven Insights</h5>
+                        <p class="small text-muted mb-0">Provide interactive visual analytics revealing correlation between area, BHK layout, age, and rate per sq.ft.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mt-md-4">
+                <div class="d-flex gap-3">
+                    <div class="badge bg-danger p-3 rounded-3 d-flex align-items-center justify-content-center text-white" style="width: 48px; height: 48px;">
+                        <i class="bi bi-shield-check fs-5"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-1">5. Statistical Transparency</h5>
+                        <p class="small text-muted mb-0">Ensure honest statistical disclaimers, confidence intervals, and explainable feature importances for all predictions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 4. TECHNOLOGY STACK ================= -->
+    <section class="mb-5">
+        <div class="text-center max-w-700 mx-auto mb-4">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold">Architecture</span>
+            <h2 class="fw-bold mt-2 mb-2">Modern Full-Stack Technology Stack</h2>
+            <p class="text-muted small">Built with enterprise-grade open source tools and standards.</p>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card custom-card p-3 text-center border-0 shadow-sm h-100">
+                    <i class="bi bi-filetype-py fs-1 text-primary mb-2"></i>
+                    <h6 class="fw-bold mb-1">Python 3.13</h6>
+                    <span class="badge bg-light text-muted small">Backend & ML</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card custom-card p-3 text-center border-0 shadow-sm h-100">
+                    <i class="bi bi-lightning-charge-fill fs-1 text-warning mb-2"></i>
+                    <h6 class="fw-bold mb-1">Flask 3.1</h6>
+                    <span class="badge bg-light text-muted small">REST Web APIs</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card custom-card p-3 text-center border-0 shadow-sm h-100">
+                    <i class="bi bi-database-fill-check fs-1 text-info mb-2"></i>
+                    <h6 class="fw-bold mb-1">PostgreSQL</h6>
+                    <span class="badge bg-light text-muted small">SQLAlchemy ORM</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card custom-card p-3 text-center border-0 shadow-sm h-100">
+                    <i class="bi bi-cpu fs-1 text-success mb-2"></i>
+                    <h6 class="fw-bold mb-1">Scikit-learn</h6>
+                    <span class="badge bg-light text-muted small">ML Pipelines</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card custom-card p-3 text-center border-0 shadow-sm h-100">
+                    <i class="bi bi-pie-chart-fill fs-1 text-danger mb-2"></i>
+                    <h6 class="fw-bold mb-1">Chart.js</h6>
+                    <span class="badge bg-light text-muted small">Data Visuals</span>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="card custom-card p-3 text-center border-0 shadow-sm h-100">
+                    <i class="bi bi-bootstrap-fill fs-1 text-purple mb-2" style="color: #6f42c1;"></i>
+                    <h6 class="fw-bold mb-1">Bootstrap 5.3</h6>
+                    <span class="badge bg-light text-muted small">Responsive UI</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 5. HOW IT WORKS (VISUAL WORKFLOW) ================= -->
+    <section class="card custom-card p-4 p-md-5 border-0 shadow-sm mb-5">
+        <div class="text-center max-w-700 mx-auto mb-5">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold">End-to-End Pipeline</span>
+            <h2 class="fw-bold mt-2 mb-2">How It Works: From Input to Valuation</h2>
+            <p class="text-muted small">Our 6-stage algorithmic workflow ensuring reliable prediction and persistence.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Step 1 -->
+            <div class="col-md-4 col-lg-2">
+                <div class="workflow-step-card text-center h-100">
+                    <div class="workflow-step-badge mx-auto">1</div>
+                    <h6 class="fw-bold mb-2">Property Details</h6>
+                    <p class="small text-muted mb-0">User inputs area, BHK, baths, parking, age, city, and locality.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="col-md-4 col-lg-2">
+                <div class="workflow-step-card text-center h-100">
+                    <div class="workflow-step-badge mx-auto">2</div>
+                    <h6 class="fw-bold mb-2">Preprocessing</h6>
+                    <p class="small text-muted mb-0">Feature engineering: BHK density, bathroom ratio, luxury tags, scaling.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="col-md-4 col-lg-2">
+                <div class="workflow-step-card text-center h-100">
+                    <div class="workflow-step-badge mx-auto">3</div>
+                    <h6 class="fw-bold mb-2">ML Inference</h6>
+                    <p class="small text-muted mb-0">Gradient Boosting ensemble scores features against trained models.</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="col-md-4 col-lg-2">
+                <div class="workflow-step-card text-center h-100">
+                    <div class="workflow-step-badge mx-auto">4</div>
+                    <h6 class="fw-bold mb-2">Price Prediction</h6>
+                    <p class="small text-muted mb-0">Generates valuation formatted in ₹ with confidence range.</p>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="col-md-4 col-lg-2">
+                <div class="workflow-step-card text-center h-100">
+                    <div class="workflow-step-badge mx-auto">5</div>
+                    <h6 class="fw-bold mb-2">PostgreSQL Save</h6>
+                    <p class="small text-muted mb-0">Persists record in `house_prices` and `prediction_history`.</p>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="col-md-4 col-lg-2">
+                <div class="workflow-step-card text-center h-100">
+                    <div class="workflow-step-badge mx-auto">6</div>
+                    <h6 class="fw-bold mb-2">Live Analytics</h6>
+                    <p class="small text-muted mb-0">Updates real-time charts, city averages, and historical stats.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 6. MACHINE LEARNING INFORMATION ================= -->
+    <section class="card custom-card p-4 p-md-5 border-0 shadow-sm mb-5">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1 fw-bold mb-2">ML Architecture</span>
+                <h3 class="fw-bold mb-3">Multi-Model Regression & Evaluation</h3>
+                <p class="text-muted small" style="line-height: 1.7;">
+                    The platform evaluates 5 distinct regression architectures using 5-fold cross-validation. The highest scoring algorithm is serialized as the champion production model:
+                </p>
+                <div class="table-responsive">
+                    <table class="table table-sm custom-table small">
+                        <thead>
+                            <tr>
+                                <th>Algorithm</th>
+                                <th>Status</th>
+                                <th>R² Score</th>
+                                <th>MAE (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-primary fw-semibold">
+                                <td><i class="bi bi-trophy-fill text-warning me-1"></i> Gradient Boosting Regressor</td>
+                                <td><span class="badge bg-success">Champion</span></td>
+                                <td>0.920</td>
+                                <td>₹ 39.7 Lakh</td>
+                            </tr>
+                            <tr>
+                                <td>XGBoost Regressor</td>
+                                <td>Evaluated</td>
+                                <td>0.911</td>
+                                <td>₹ 41.5 Lakh</td>
+                            </tr>
+                            <tr>
+                                <td>Random Forest Regressor</td>
+                                <td>Evaluated</td>
+                                <td>0.904</td>
+                                <td>₹ 43.2 Lakh</td>
+                            </tr>
+                            <tr>
+                                <td>Decision Tree Regressor</td>
+                                <td>Baseline</td>
+                                <td>0.855</td>
+                                <td>₹ 52.8 Lakh</td>
+                            </tr>
+                            <tr>
+                                <td>Linear Regression</td>
+                                <td>Baseline</td>
+                                <td>0.836</td>
+                                <td>₹ 58.1 Lakh</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3 py-1 fw-bold mb-2">Model Boundaries</span>
+                <h3 class="fw-bold mb-3">Model Transparency & Prediction Limitations</h3>
+                <p class="text-muted small" style="line-height: 1.7;">
+                    While our models achieve high test-set correlation ($R^2 \approx 0.920$), real-world property values are influenced by factors beyond structural specifications:
+                </p>
+                <ul class="text-muted small ps-3 mb-4" style="line-height: 1.8;">
+                    <li><strong>Subjective Interior Craftsmanship:</strong> Ultra-luxury Italian marble, designer modular kitchens, and custom woodwork can elevate price beyond tabular predictions.</li>
+                    <li><strong>Hyper-Local Infrastructure Shifts:</strong> Unannounced road expansions, flyover announcements, or zoning rezoning alter values dynamically.</li>
+                    <li><strong>Market Sentiment & Urgency:</strong> Distress sales or aggressive bidding wars can temporarily shift transacted price from algorithmic baseline.</li>
+                </ul>
+                <div class="alert alert-info border-0 rounded-3 small mb-0">
+                    <i class="bi bi-info-circle-fill me-1"></i>
+                    <strong>Important:</strong> PropValuate AI estimates represent statistical fair-market reference benchmarks and should complement, rather than substitute, certified civil surveyor appraisal.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 7. PROJECT FEATURES GRID ================= -->
+    <section class="mb-5">
+        <div class="text-center max-w-700 mx-auto mb-4">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold">Capabilities</span>
+            <h2 class="fw-bold mt-2 mb-2">Key Application Features</h2>
+            <p class="text-muted small">Everything needed for comprehensive residential property valuation and analysis.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="badge bg-primary-subtle text-primary p-3 rounded-3 fs-5">
+                            <i class="bi bi-calculator"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Instant Valuation</h5>
+                    </div>
+                    <p class="small text-muted mb-0">Calculate accurate property prices with confidence intervals, lower and upper bounds, and price per sq.ft.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="badge bg-danger-subtle text-danger p-3 rounded-3 fs-5">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Location Intelligence</h5>
+                    </div>
+                    <p class="small text-muted mb-0">Dedicated micro-market analytics for Ahmedabad (Bopal, Satellite, Prahlad Nagar) and top metros.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="badge bg-success-subtle text-success p-3 rounded-3 fs-5">
+                            <i class="bi bi-intersect"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Side-by-Side Compare</h5>
+                    </div>
+                    <p class="small text-muted mb-0">Compare two or three houses or entire cities side-by-side with difference badges and visual charts.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="badge bg-info-subtle text-info p-3 rounded-3 fs-5">
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">PDF Valuation Reports</h5>
+                    </div>
+                    <p class="small text-muted mb-0">Download institutional-grade valuation dossiers generated via ReportLab with detailed breakdown.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="badge bg-warning-subtle text-warning p-3 rounded-3 fs-5">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">Live Analytics</h5>
+                    </div>
+                    <p class="small text-muted mb-0">Auto-refreshing dashboard powered by Chart.js with pulse indicators and instantaneous filtering.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="badge bg-purple-subtle p-3 rounded-3 fs-5" style="background: rgba(111, 66, 193, 0.12); color: #6f42c1;">
+                            <i class="bi bi-database-check"></i>
+                        </div>
+                        <h5 class="fw-bold mb-0">PostgreSQL Audit</h5>
+                    </div>
+                    <p class="small text-muted mb-0">All predictions, user activities, and properties are securely tracked and queried in PostgreSQL.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= 8. INSTITUTIONAL & PROJECT INFORMATION ================= -->
+    <section class="card custom-card p-4 p-md-5 border-0 shadow-sm mb-4">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-8">
+                <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold mb-2">Academic Excellence</span>
+                <h3 class="fw-bold mb-2">Adani University Web Project</h3>
+                <p class="text-muted small mb-3" style="line-height: 1.7;">
+                    This application was engineered as part of the advanced Machine Learning & Web Application Architecture curriculum at <strong>Adani University</strong>. Designed to adhere strictly to modern full-stack web standards, robust database normalization, and ethical AI deployment.
+                </p>
+                <div class="d-flex flex-wrap gap-4 text-muted small">
+                    <div><i class="bi bi-geo-alt-fill text-primary me-1"></i> Ahmedabad, Gujarat, India</div>
+                    <div><i class="bi bi-calendar3 text-primary me-1"></i> Academic Term 2026</div>
+                    <div><i class="bi bi-person-badge-fill text-primary me-1"></i> Lead Developer: Kalpesh & Team</div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex flex-column gap-2 justify-content-center">
+                    <a href="{{ url_for('page_feedback') }}" class="btn btn-outline-primary rounded-pill fw-semibold">
+                        <i class="bi bi-chat-left-text me-1"></i> Provide Feedback
+                    </a>
+                    <a href="{{ url_for('page_contact') }}" class="btn btn-primary rounded-pill fw-semibold">
+                        <i class="bi bi-envelope me-1"></i> Contact Project Team
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

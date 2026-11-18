@@ -1,0 +1,575 @@
+{% extends "base.html" %}
+
+{% block title %}House-to-House Property Comparison — PropValuate AI{% endblock %}
+{% block breadcrumb %}Compare Houses{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- Header & Action -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-intersect text-primary me-2"></i>House-to-House Comparison Engine
+            </h3>
+            <p class="small text-muted mb-0">
+                Compare two or more residential properties side-by-side to evaluate price differentials, space advantages, and rate per square foot.
+            </p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill small fw-semibold">
+                <i class="bi bi-pin-map-fill me-1"></i> Default Hub: Ahmedabad (Bopal), Gujarat
+            </span>
+            <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold" onclick="runComparison()">
+                <i class="bi bi-arrow-left-right me-1"></i> Re-Calculate Comparison
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick Load from Database Banner -->
+    <div class="card custom-card p-3 border-0 shadow-sm mb-4 bg-light">
+        <div class="row g-2 align-items-center">
+            <div class="col-md-6">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-database-fill text-primary"></i>
+                    <span class="small fw-bold">Load Real Property into Option A:</span>
+                    <select class="form-select form-select-sm" id="presetSelectA" onchange="loadPreset('a')">
+                        <option value="">-- Choose from Database --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-database-fill text-success"></i>
+                    <span class="small fw-bold">Load Real Property into Option B:</span>
+                    <select class="form-select form-select-sm" id="presetSelectB" onchange="loadPreset('b')">
+                        <option value="">-- Choose from Database --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dual Property Input Cards -->
+    <div class="row g-4 mb-4">
+        <!-- Property Option A -->
+        <div class="col-lg-6">
+            <div class="card custom-card p-4 border-primary border-2 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-primary px-3 py-2 rounded-pill fw-bold fs-6">Property Option A</span>
+                    <div class="text-end">
+                        <div id="priceA" class="fs-4 fw-bold text-primary">₹ --</div>
+                        <div id="rateA" class="small text-muted">₹ --/sq.ft.</div>
+                    </div>
+                </div>
+
+                <form id="formA">
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">City</label>
+                            <select class="form-select form-select-sm" id="cityA" onchange="updateLocs('a')">
+                                <option value="Ahmedabad" selected>Ahmedabad (Default)</option>
+                                <option value="Surat">Surat</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Delhi">Delhi</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Locality</label>
+                            <input type="text" class="form-control form-control-sm" id="locA" value="Bopal">
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Area (sq.ft.)</label>
+                            <input type="number" class="form-control form-control-sm" id="areaA" value="1350" min="200" max="25000">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Bedrooms (BHK)</label>
+                            <select class="form-select form-select-sm" id="bhkA">
+                                <option value="1">1 BHK</option>
+                                <option value="2">2 BHK</option>
+                                <option value="3" selected>3 BHK</option>
+                                <option value="4">4 BHK</option>
+                                <option value="5">5+ BHK</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Bathrooms</label>
+                            <select class="form-select form-select-sm" id="bathA">
+                                <option value="1">1 Bath</option>
+                                <option value="2" selected>2 Baths</option>
+                                <option value="3">3 Baths</option>
+                                <option value="4">4+ Baths</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Floors</label>
+                            <input type="number" class="form-control form-control-sm" id="floorA" value="4" min="1" max="60">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Parking</label>
+                            <input type="number" class="form-control form-control-sm" id="parkA" value="1" min="0" max="6">
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Age (Years)</label>
+                            <input type="number" class="form-control form-control-sm" id="ageA" value="2" min="0" max="60">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Property Type</label>
+                            <select class="form-select form-select-sm" id="typeA">
+                                <option value="Apartment" selected>Apartment</option>
+                                <option value="Villa">Villa</option>
+                                <option value="Independent House">Independent House</option>
+                                <option value="Penthouse">Penthouse</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Furnishing</label>
+                            <select class="form-select form-select-sm" id="furnA">
+                                <option value="Semi-Furnished" selected>Semi-Furnished</option>
+                                <option value="Furnished">Furnished</option>
+                                <option value="Unfurnished">Unfurnished</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill fw-semibold" onclick="calculateValuation('a')">
+                        <i class="bi bi-calculator me-1"></i> Calculate Option A Valuation
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Property Option B -->
+        <div class="col-lg-6">
+            <div class="card custom-card p-4 border-success border-2 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="badge bg-success px-3 py-2 rounded-pill fw-bold fs-6">Property Option B</span>
+                    <div class="text-end">
+                        <div id="priceB" class="fs-4 fw-bold text-success">₹ --</div>
+                        <div id="rateB" class="small text-muted">₹ --/sq.ft.</div>
+                    </div>
+                </div>
+
+                <form id="formB">
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">City</label>
+                            <select class="form-select form-select-sm" id="cityB" onchange="updateLocs('b')">
+                                <option value="Ahmedabad" selected>Ahmedabad (Default)</option>
+                                <option value="Surat">Surat</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Delhi">Delhi</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Locality</label>
+                            <input type="text" class="form-control form-control-sm" id="locB" value="Satellite">
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Area (sq.ft.)</label>
+                            <input type="number" class="form-control form-control-sm" id="areaB" value="1650" min="200" max="25000">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Bedrooms (BHK)</label>
+                            <select class="form-select form-select-sm" id="bhkB">
+                                <option value="1">1 BHK</option>
+                                <option value="2">2 BHK</option>
+                                <option value="3">3 BHK</option>
+                                <option value="4" selected>4 BHK</option>
+                                <option value="5">5+ BHK</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Bathrooms</label>
+                            <select class="form-select form-select-sm" id="bathB">
+                                <option value="1">1 Bath</option>
+                                <option value="2">2 Baths</option>
+                                <option value="3" selected>3 Baths</option>
+                                <option value="4">4+ Baths</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Floors</label>
+                            <input type="number" class="form-control form-control-sm" id="floorB" value="8" min="1" max="60">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Parking</label>
+                            <input type="number" class="form-control form-control-sm" id="parkB" value="2" min="0" max="6">
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Age (Years)</label>
+                            <input type="number" class="form-control form-control-sm" id="ageB" value="1" min="0" max="60">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Property Type</label>
+                            <select class="form-select form-select-sm" id="typeB">
+                                <option value="Apartment" selected>Apartment</option>
+                                <option value="Villa">Villa</option>
+                                <option value="Independent House">Independent House</option>
+                                <option value="Penthouse">Penthouse</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label small fw-bold">Furnishing</label>
+                            <select class="form-select form-select-sm" id="furnB">
+                                <option value="Semi-Furnished">Semi-Furnished</option>
+                                <option value="Furnished" selected>Furnished</option>
+                                <option value="Unfurnished">Unfurnished</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-success btn-sm w-100 rounded-pill fw-semibold" onclick="calculateValuation('b')">
+                        <i class="bi bi-calculator me-1"></i> Calculate Option B Valuation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparative Diff Highlights -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card custom-card p-3 border-0 shadow-sm h-100">
+                <span class="small text-muted fw-bold">Valuation Difference</span>
+                <div class="fs-5 fw-bold text-dark mt-1" id="diffPriceBadge">Calculating...</div>
+                <div class="small text-muted" id="diffPriceText">Comparing Option A vs Option B</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card custom-card p-3 border-0 shadow-sm h-100">
+                <span class="small text-muted fw-bold">Living Space Difference</span>
+                <div class="fs-5 fw-bold text-dark mt-1" id="diffAreaBadge">Calculating...</div>
+                <div class="small text-muted" id="diffAreaText">Area comparison in sq.ft.</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card custom-card p-3 border-0 shadow-sm h-100">
+                <span class="small text-muted fw-bold">Capital Efficiency (₹/sq.ft.)</span>
+                <div class="fs-5 fw-bold text-dark mt-1" id="diffRateBadge">Calculating...</div>
+                <div class="small text-muted" id="diffRateText">Rate per square foot analysis</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visual Comparison Chart -->
+    <div class="card custom-card p-4 border-0 shadow-sm mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h5 class="fw-bold mb-1">Visual Side-by-Side Comparison Chart</h5>
+                <p class="small text-muted mb-0">Direct comparison of Valuation (₹ Lakhs), Living Area (sq.ft.), and Rate/sq.ft. / 100</p>
+            </div>
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 small">Interactive Metrics</span>
+        </div>
+        <div style="height: 320px; position: relative;">
+            <canvas id="houseComparisonChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Side-by-Side Specifications Table -->
+    <div class="card custom-card p-4 border-0 shadow-sm mb-4">
+        <h5 class="fw-bold mb-3">Detailed Architectural Specifications Comparison</h5>
+        <div class="table-responsive">
+            <table class="table table-hover custom-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Specification Attribute</th>
+                        <th class="text-primary fw-bold" style="width: 35%;">Option A</th>
+                        <th class="text-success fw-bold" style="width: 35%;">Option B</th>
+                        <th style="width: 15%;">Differential</th>
+                    </tr>
+                </thead>
+                <tbody id="compareTableBody">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let compareChart = null;
+let savedPropsList = [];
+let valA = { price: 0, area: 1350, rate: 0 };
+let valB = { price: 0, area: 1650, rate: 0 };
+
+async function loadPresets() {
+    try {
+        const res = await fetch("/api/properties?limit=25");
+        const data = await res.json();
+        if (data.success && data.data) {
+            savedPropsList = data.data;
+            const selA = document.getElementById("presetSelectA");
+            const selB = document.getElementById("presetSelectB");
+
+            savedPropsList.forEach((p, idx) => {
+                const optA = document.createElement("option");
+                optA.value = p.id;
+                optA.textContent = `#${p.id} - ${p.locality}, ${p.city} (${p.bedrooms} BHK, ${p.predicted_price_formatted})`;
+                selA.appendChild(optA);
+
+                const optB = document.createElement("option");
+                optB.value = p.id;
+                optB.textContent = `#${p.id} - ${p.locality}, ${p.city} (${p.bedrooms} BHK, ${p.predicted_price_formatted})`;
+                if (idx === 1) optB.selected = true;
+                selB.appendChild(optB);
+            });
+        }
+    } catch (e) {
+        console.error("Failed to load property presets:", e);
+    }
+}
+
+function loadPreset(side) {
+    const sel = document.getElementById(side === 'a' ? "presetSelectA" : "presetSelectB");
+    const propId = parseInt(sel.value);
+    const prop = savedPropsList.find(p => p.id === propId);
+    if (!prop) return;
+
+    if (side === 'a') {
+        document.getElementById("cityA").value = prop.city;
+        document.getElementById("locA").value = prop.locality;
+        document.getElementById("areaA").value = prop.area_sqft;
+        document.getElementById("bhkA").value = prop.bedrooms;
+        document.getElementById("bathA").value = prop.bathrooms;
+        document.getElementById("typeA").value = prop.property_type;
+        document.getElementById("furnA").value = prop.furnishing_status;
+        calculateValuation('a');
+    } else {
+        document.getElementById("cityB").value = prop.city;
+        document.getElementById("locB").value = prop.locality;
+        document.getElementById("areaB").value = prop.area_sqft;
+        document.getElementById("bhkB").value = prop.bedrooms;
+        document.getElementById("bathB").value = prop.bathrooms;
+        document.getElementById("typeB").value = prop.property_type;
+        document.getElementById("furnB").value = prop.furnishing_status;
+        calculateValuation('b');
+    }
+}
+
+async function calculateValuation(side) {
+    const isA = side === 'a';
+    const city = document.getElementById(isA ? "cityA" : "cityB").value;
+    const locality = document.getElementById(isA ? "locA" : "locB").value;
+    const area = parseFloat(document.getElementById(isA ? "areaA" : "areaB").value) || 1200;
+    const bhk = parseInt(document.getElementById(isA ? "bhkA" : "bhkB").value) || 3;
+    const bath = parseInt(document.getElementById(isA ? "bathA" : "bathB").value) || 2;
+    const floors = parseInt(document.getElementById(isA ? "floorA" : "floorB").value) || 3;
+    const park = parseInt(document.getElementById(isA ? "parkA" : "parkB").value) || 1;
+    const age = parseInt(document.getElementById(isA ? "ageA" : "ageB").value) || 2;
+    const ptype = document.getElementById(isA ? "typeA" : "typeB").value;
+    const furn = document.getElementById(isA ? "furnA" : "furnB").value;
+
+    const payload = {
+        city: city,
+        locality: locality,
+        state: city === "Ahmedabad" || city === "Surat" || city === "Vadodara" ? "Gujarat" : "Maharashtra",
+        area_sqft: area,
+        bedrooms: bhk,
+        bathrooms: bath,
+        floors: floors,
+        parking: park,
+        property_age: age,
+        property_type: ptype,
+        furnishing_status: furn
+    };
+
+    try {
+        const res = await fetch("/api/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        if (json.success && json.data) {
+            const price = json.data.predicted_price;
+            const rate = Math.round(price / Math.max(1, area));
+
+            if (isA) {
+                valA = { price, area, rate, ...payload };
+                document.getElementById("priceA").textContent = json.data.predicted_price_formatted;
+                document.getElementById("rateA").textContent = `₹ ${rate.toLocaleString('en-IN')}/sq.ft.`;
+            } else {
+                valB = { price, area, rate, ...payload };
+                document.getElementById("priceB").textContent = json.data.predicted_price_formatted;
+                document.getElementById("rateB").textContent = `₹ ${rate.toLocaleString('en-IN')}/sq.ft.`;
+            }
+
+            updateComparisonSummary();
+        }
+    } catch (e) {
+        console.error("Valuation error:", e);
+    }
+}
+
+async function runComparison() {
+    await calculateValuation('a');
+    await calculateValuation('b');
+}
+
+function updateComparisonSummary() {
+    if (valA.price === 0 || valB.price === 0) return;
+
+    // Price diff
+    const priceDiff = valB.price - valA.price;
+    const priceDiffPct = ((priceDiff / valA.price) * 100).toFixed(1);
+    const pEl = document.getElementById("diffPriceBadge");
+    const pSub = document.getElementById("diffPriceText");
+
+    if (priceDiff > 0) {
+        pEl.innerHTML = `<span class="text-danger">+${formatINR(priceDiff)} (${priceDiffPct}%)</span>`;
+        pSub.textContent = "Option B has a higher valuation than Option A";
+    } else if (priceDiff < 0) {
+        pEl.innerHTML = `<span class="text-success">${formatINR(priceDiff)} (${priceDiffPct}%)</span>`;
+        pSub.textContent = "Option B is more affordable than Option A";
+    } else {
+        pEl.innerHTML = `<span class="text-secondary">Identical Valuation</span>`;
+        pSub.textContent = "Both options have the same estimated valuation";
+    }
+
+    // Area diff
+    const areaDiff = valB.area - valA.area;
+    const aEl = document.getElementById("diffAreaBadge");
+    const aSub = document.getElementById("diffAreaText");
+
+    if (areaDiff > 0) {
+        aEl.innerHTML = `<span class="text-primary">+${areaDiff} sq.ft.</span>`;
+        aSub.textContent = "Option B offers greater living space";
+    } else if (areaDiff < 0) {
+        aEl.innerHTML = `<span class="text-secondary">${areaDiff} sq.ft.</span>`;
+        aSub.textContent = "Option A offers greater living space";
+    } else {
+        aEl.innerHTML = `<span class="text-secondary">Identical Area</span>`;
+        aSub.textContent = "Both options offer the same area";
+    }
+
+    // Rate diff
+    const rateDiff = valB.rate - valA.rate;
+    const rEl = document.getElementById("diffRateBadge");
+    const rSub = document.getElementById("diffRateText");
+
+    if (valA.rate < valB.rate) {
+        rEl.innerHTML = `<span class="badge bg-success-subtle text-success p-2">Option A Better Value</span>`;
+        rSub.textContent = `Option A is ₹ ${(valB.rate - valA.rate).toLocaleString('en-IN')}/sq.ft. cheaper`;
+    } else if (valB.rate < valA.rate) {
+        rEl.innerHTML = `<span class="badge bg-success-subtle text-success p-2">Option B Better Value</span>`;
+        rSub.textContent = `Option B is ₹ ${(valA.rate - valB.rate).toLocaleString('en-IN')}/sq.ft. cheaper`;
+    } else {
+        rEl.innerHTML = `<span class="badge bg-light text-dark p-2">Equal Rate Efficiency</span>`;
+        rSub.textContent = "Both options share identical price per sq.ft.";
+    }
+
+    // Update Comparison Chart
+    renderComparisonChart();
+
+    // Update Table
+    renderComparisonTable();
+}
+
+function renderComparisonChart() {
+    const ctx = document.getElementById("houseComparisonChart");
+    if (!ctx) return;
+
+    if (compareChart) {
+        compareChart.destroy();
+    }
+
+    const priceALakhs = (valA.price / 100000).toFixed(2);
+    const priceBLakhs = (valB.price / 100000).toFixed(2);
+
+    const rateAScaled = (valA.rate / 100).toFixed(1);
+    const rateBScaled = (valB.rate / 100).toFixed(1);
+
+    compareChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Valuation (₹ Lakhs)", "Living Area (sq.ft.)", "Rate / sq.ft. (÷ 100)"],
+            datasets: [
+                {
+                    label: "Option A",
+                    data: [priceALakhs, valA.area, rateAScaled],
+                    backgroundColor: "rgba(37, 99, 235, 0.85)",
+                    borderRadius: 6
+                },
+                {
+                    label: "Option B",
+                    data: [priceBLakhs, valB.area, rateBScaled],
+                    backgroundColor: "rgba(16, 185, 129, 0.85)",
+                    borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: "top" }
+            },
+            scales: {
+                y: {
+                    grid: { color: "rgba(226, 232, 240, 0.6)" }
+                }
+            }
+        }
+    });
+}
+
+function renderComparisonTable() {
+    const tbody = document.getElementById("compareTableBody");
+    if (!tbody) return;
+
+    const rows = [
+        { label: "City & Locality", a: `${valA.locality}, ${valA.city}`, b: `${valB.locality}, ${valB.city}`, diff: "-" },
+        { label: "Estimated Fair Valuation", a: formatINR(valA.price), b: formatINR(valB.price), diff: formatINR(Math.abs(valB.price - valA.price)) },
+        { label: "Rate per Square Foot", a: `₹ ${valA.rate.toLocaleString('en-IN')}/sq.ft.`, b: `₹ ${valB.rate.toLocaleString('en-IN')}/sq.ft.`, diff: `₹ ${Math.abs(valB.rate - valA.rate).toLocaleString('en-IN')}` },
+        { label: "Total Living Area", a: `${valA.area} sq.ft.`, b: `${valB.area} sq.ft.`, diff: `${Math.abs(valB.area - valA.area)} sq.ft.` },
+        { label: "Bedrooms (BHK)", a: `${valA.bedrooms} BHK`, b: `${valB.bedrooms} BHK`, diff: `${Math.abs(valB.bedrooms - valA.bedrooms)} BHK` },
+        { label: "Bathrooms", a: `${valA.bathrooms} Baths`, b: `${valB.bathrooms} Baths`, diff: `${Math.abs(valB.bathrooms - valA.bathrooms)}` },
+        { label: "Floor Level", a: `Floor ${valA.floors}`, b: `Floor ${valB.floors}`, diff: `${Math.abs(valB.floors - valA.floors)}` },
+        { label: "Reserved Parking", a: `${valA.parking} Cars`, b: `${valB.parking} Cars`, diff: `${Math.abs(valB.parking - valA.parking)}` },
+        { label: "Property Age", a: `${valA.property_age} Years`, b: `${valB.property_age} Years`, diff: `${Math.abs(valB.property_age - valA.property_age)} yrs` },
+        { label: "Property Type", a: valA.property_type, b: valB.property_type, diff: "-" },
+        { label: "Furnishing Status", a: valA.furnishing_status, b: valB.furnishing_status, diff: "-" }
+    ];
+
+    tbody.innerHTML = rows.map(r => `
+        <tr>
+            <td class="fw-semibold text-muted">${r.label}</td>
+            <td class="fw-bold text-primary">${r.a}</td>
+            <td class="fw-bold text-success">${r.b}</td>
+            <td><span class="badge bg-light text-dark border">${r.diff}</span></td>
+        </tr>
+    `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadPresets();
+    await runComparison();
+});
+</script>
+{% endblock %}

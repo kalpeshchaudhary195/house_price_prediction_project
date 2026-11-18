@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+{% block title %}PropValuate AI — Indian Residential House Price Valuation & Analytics{% endblock %}
+
+{% block content %}
+<!-- ================= PHASE 3: REAL ESTATE IMAGE SLIDER ================= -->
+<div class="property-slider-container">
+    <div id="realEstateCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        <!-- Indicators / Dots -->
+        <div class="carousel-indicators mb-3">
+            <button type="button" data-bs-target="#realEstateCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#realEstateCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#realEstateCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#realEstateCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#realEstateCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        </div>
+
+        <!-- Carousel Slides -->
+        <div class="carousel-inner">
+            <!-- Slide 1: Ahmedabad (Bopal) - Phase 4 Location Preserved -->
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&h=750&q=80" class="slider-img" alt="Luxury Villa in Bopal Ahmedabad">
+                <div class="slider-overlay-scrim">
+                    <div class="slider-content">
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            <span class="slider-badge-loc"><i class="bi bi-geo-alt-fill"></i> Bopal, Ahmedabad • Gujarat</span>
+                            <span class="slider-price-badge">₹ 1.85 Cr</span>
+                        </div>
+                        <h2 class="slider-title">Contemporary 4 BHK Landscaped Garden Villa</h2>
+                        <p class="slider-desc">
+                            Prime residential villa located in the Bopal corridor featuring bespoke Italian architecture, solar energy grid, and 3,200 sq.ft. of landscaped elegance.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                                <i class="bi bi-calculator-fill me-1"></i> Predict House Price
+                            </a>
+                            <a href="{{ url_for('properties.page_properties') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-building me-1"></i> Explore Properties
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Bodakdev, Ahmedabad -->
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&h=750&q=80" class="slider-img" alt="Skyline Penthouse Bodakdev">
+                <div class="slider-overlay-scrim">
+                    <div class="slider-content">
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            <span class="slider-badge-loc"><i class="bi bi-geo-alt-fill"></i> Bodakdev, Ahmedabad • Gujarat</span>
+                            <span class="slider-price-badge">₹ 2.45 Cr</span>
+                        </div>
+                        <h2 class="slider-title">Skyline View 3 BHK High-Rise Penthouse</h2>
+                        <p class="slider-desc">
+                            Double-height panoramic glass living room overlooking SG Highway corridor with private terrace garden and Italian marble finish.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                                <i class="bi bi-calculator-fill me-1"></i> Predict House Price
+                            </a>
+                            <a href="{{ url_for('properties.page_properties') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-building me-1"></i> Explore Properties
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Mumbai (Bandra West) -->
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&h=750&q=80" class="slider-img" alt="Luxury Sea-Facing Residence Bandra">
+                <div class="slider-overlay-scrim">
+                    <div class="slider-content">
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            <span class="slider-badge-loc"><i class="bi bi-geo-alt-fill"></i> Bandra West, Mumbai • Maharashtra</span>
+                            <span class="slider-price-badge">₹ 7.20 Cr</span>
+                        </div>
+                        <h2 class="slider-title">Seaside 3 BHK Luxury Avenue Residence</h2>
+                        <p class="slider-desc">
+                            Ultra-premium coastal avenue living with bespoke designer interiors, private elevator foyer, and panoramic sunset views.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                                <i class="bi bi-calculator-fill me-1"></i> Predict House Price
+                            </a>
+                            <a href="{{ url_for('properties.page_properties') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-building me-1"></i> Explore Properties
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Bangalore (Whitefield) -->
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1600&h=750&q=80" class="slider-img" alt="Eco Smart Villa Whitefield">
+                <div class="slider-overlay-scrim">
+                    <div class="slider-content">
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            <span class="slider-badge-loc"><i class="bi bi-geo-alt-fill"></i> Whitefield, Bangalore • Karnataka</span>
+                            <span class="slider-price-badge">₹ 3.10 Cr</span>
+                        </div>
+                        <h2 class="slider-title">Eco-Smart 4 BHK Tech-Corridor Villa</h2>
+                        <p class="slider-desc">
+                            Sustainable solar-powered smart villa with private plunge pool, EV fast-charging bay, and IoT climate controls.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                                <i class="bi bi-calculator-fill me-1"></i> Predict House Price
+                            </a>
+                            <a href="{{ url_for('properties.page_properties') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-building me-1"></i> Explore Properties
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Pune (Kothrud) -->
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&h=750&q=80" class="slider-img" alt="Hillside Apartment Kothrud Pune">
+                <div class="slider-overlay-scrim">
+                    <div class="slider-content">
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            <span class="slider-badge-loc"><i class="bi bi-geo-alt-fill"></i> Kothrud, Pune • Maharashtra</span>
+                            <span class="slider-price-badge">₹ 1.45 Cr</span>
+                        </div>
+                        <h2 class="slider-title">Scenic Hillside 3 BHK Premium Flat</h2>
+                        <p class="slider-desc">
+                            Spacious balconies with Aravali hillside cross-ventilation, expansive clubhouse amenities, and high urban transit access.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                                <i class="bi bi-calculator-fill me-1"></i> Predict House Price
+                            </a>
+                            <a href="{{ url_for('properties.page_properties') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-building me-1"></i> Explore Properties
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#realEstateCarousel" data-bs-slide="prev" aria-label="Previous Slide">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#realEstateCarousel" data-bs-slide="next" aria-label="Next Slide">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+<!-- ================= PHASE 5: 6 DASHBOARD STAT CARDS ================= -->
+<div class="row g-3 mb-4">
+    <!-- Card 1: Total Properties -->
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon primary"><i class="bi bi-houses"></i></div>
+            <div class="stat-title">Total Properties</div>
+            <div class="stat-value" id="home-stat-props">--</div>
+            <div class="stat-subtitle">Database inventory</div>
+        </div>
+    </div>
+
+    <!-- Card 2: Total Predictions -->
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon success"><i class="bi bi-clipboard2-check"></i></div>
+            <div class="stat-title">Total Predictions</div>
+            <div class="stat-value" id="home-stat-preds">--</div>
+            <div class="stat-subtitle">Logged in PostgreSQL</div>
+        </div>
+    </div>
+
+    <!-- Card 3: Average House Price -->
+    <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon purple"><i class="bi bi-currency-rupee"></i></div>
+            <div class="stat-title">Average House Price</div>
+            <div class="stat-value" id="home-stat-avg">--</div>
+            <div class="stat-subtitle" id="home-stat-avg-sub">Market average</div>
+        </div>
+    </div>
+
+    <!-- Card 4: Highest Price -->
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon warning"><i class="bi bi-graph-up"></i></div>
+            <div class="stat-title">Highest Valuation</div>
+            <div class="stat-value fs-5" id="home-stat-max">--</div>
+            <div class="stat-subtitle">Luxury tier max</div>
+        </div>
+    </div>
+
+    <!-- Card 5: Lowest Price -->
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-icon danger"><i class="bi bi-graph-down"></i></div>
+            <div class="stat-title">Lowest Valuation</div>
+            <div class="stat-value fs-5" id="home-stat-min">--</div>
+            <div class="stat-subtitle">Entry market tier</div>
+        </div>
+    </div>
+
+    <!-- Card 6: Model Performance -->
+    <div class="col-xl-1 col-md-4 col-sm-6 flex-grow-1">
+        <div class="stat-card">
+            <div class="stat-icon primary"><i class="bi bi-bullseye"></i></div>
+            <div class="stat-title">Model Accuracy R²</div>
+            <div class="stat-value text-primary" id="home-stat-r2">92.0%</div>
+            <div class="stat-subtitle">Gradient Boosting</div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= POPULAR LOCATIONS & RECENT ACTIVITIES ================= -->
+<div class="row g-4 mb-4">
+    <!-- Featured Ahmedabad Hub (Location Preserved) -->
+    <div class="col-lg-5">
+        <div class="card custom-card p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h5 class="fw-bold mb-0">Primary Location Hub</h5>
+                    <p class="small text-muted mb-0">Configured default benchmark: Gujarat</p>
+                </div>
+                <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-2 rounded-pill">
+                    <i class="bi bi-pin-map-fill me-1"></i> Ahmedabad
+                </span>
+            </div>
+
+            <div class="p-3 bg-light rounded-3 border mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold text-dark fs-6">Bopal Residential Hub</div>
+                        <div class="small text-muted">Primary Locality Anchor</div>
+                    </div>
+                    <div class="text-end">
+                        <span class="fw-bold text-success fs-6">₹ 4,800 - ₹ 6,200</span>
+                        <div class="small text-muted">avg per sq.ft.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column gap-2 mb-3">
+                <div class="d-flex justify-content-between small py-1 border-bottom">
+                    <span class="text-muted"><i class="bi bi-building me-1"></i> Bodakdev (High-End Corridor)</span>
+                    <span class="fw-semibold">₹ 8,200 / sq.ft.</span>
+                </div>
+                <div class="d-flex justify-content-between small py-1 border-bottom">
+                    <span class="text-muted"><i class="bi bi-building me-1"></i> Satellite / Vastrapur</span>
+                    <span class="fw-semibold">₹ 7,100 / sq.ft.</span>
+                </div>
+                <div class="d-flex justify-content-between small py-1 border-bottom">
+                    <span class="text-muted"><i class="bi bi-building me-1"></i> Thaltej / Prahlad Nagar</span>
+                    <span class="fw-semibold">₹ 7,800 / sq.ft.</span>
+                </div>
+                <div class="d-flex justify-content-between small py-1">
+                    <span class="text-muted"><i class="bi bi-building me-1"></i> SG Highway Commercial Hub</span>
+                    <span class="fw-semibold">₹ 6,400 / sq.ft.</span>
+                </div>
+            </div>
+
+            <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill w-100 fw-semibold mt-auto">
+                <i class="bi bi-lightning-charge-fill me-1"></i> Value Ahmedabad Property
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Valuation Shortcut -->
+    <div class="col-lg-7">
+        <div class="card custom-card p-4 h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5 class="fw-bold mb-0">Instant Valuation Engine</h5>
+                        <p class="small text-muted mb-0">Evaluate any Indian residential property in 3 seconds</p>
+                    </div>
+                    <span class="badge bg-success-subtle text-success fw-bold px-3 py-2 rounded-pill">
+                        <i class="bi bi-shield-check me-1"></i> Calibrated ML
+                    </span>
+                </div>
+
+                <p class="text-muted small">
+                    Our Scikit-learn regression models account for micro-market per-sqft benchmarks, building floor levels, dedicated parking, age depreciation, and furnishing condition.
+                </p>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-sm-4">
+                        <div class="p-3 border rounded-3 bg-light text-center">
+                            <i class="bi bi-layers-fill text-primary fs-4"></i>
+                            <div class="small fw-bold text-dark mt-1">Multi-Model</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">5 Algorithms Evaluated</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-3 border rounded-3 bg-light text-center">
+                            <i class="bi bi-file-earmark-pdf-fill text-danger fs-4"></i>
+                            <div class="small fw-bold text-dark mt-1">PDF Reports</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">Downloadable Valuations</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-3 border rounded-3 bg-light text-center">
+                            <i class="bi bi-database-check text-success fs-4"></i>
+                            <div class="small fw-bold text-dark mt-1">PostgreSQL</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">Persistent History</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 pt-2 border-top">
+                <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 fw-bold">
+                    <i class="bi bi-calculator me-1"></i> Start Prediction
+                </a>
+                <a href="{{ url_for('properties.page_properties') }}" class="btn btn-outline-secondary rounded-pill px-3">
+                    <i class="bi bi-grid me-1"></i> Browse Showcase
+                </a>
+                <a href="{{ url_for('page_analytics') }}" class="btn btn-outline-secondary rounded-pill px-3">
+                    <i class="bi bi-pie-chart me-1"></i> View 10 Charts
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const res = await fetch('/api/dashboard/stats');
+        const json = await res.json();
+        if (json.success) {
+            const s = json.stats;
+            document.getElementById('home-stat-props').textContent = s.total_properties.toLocaleString('en-IN');
+            document.getElementById('home-stat-preds').textContent = s.total_predictions.toLocaleString('en-IN');
+            document.getElementById('home-stat-avg').textContent = s.avg_price_formatted;
+            document.getElementById('home-stat-avg-sub').textContent = `Exact: ${formatINRExact(s.avg_price)}`;
+            document.getElementById('home-stat-max').textContent = s.max_price_formatted;
+            document.getElementById('home-stat-min').textContent = s.min_price_formatted;
+            if (s.model_metrics) {
+                document.getElementById('home-stat-r2').textContent = (s.model_metrics.r2_score * 100).toFixed(1) + '%';
+            }
+        }
+    } catch (e) {
+        console.error('Failed to load home stats:', e);
+    }
+});
+</script>
+{% endblock %}

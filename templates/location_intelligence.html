@@ -1,0 +1,393 @@
+{% extends "base.html" %}
+
+{% block title %}Location Intelligence & Micro-Market Analytics — PropValuate AI{% endblock %}
+{% block breadcrumb %}Location Intelligence{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- Header & Location Selector Banner -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-geo-alt-fill text-danger me-2"></i>Location Intelligence & Micro-Market Hub
+            </h3>
+            <p class="small text-muted mb-0">
+                Granular pricing benchmarks, price per square foot dynamics, and livability metrics across Indian real-estate micro-markets.
+            </p>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2 rounded-pill small fw-semibold">
+                <i class="bi bi-pin-map-fill me-1"></i> Default Hub: Ahmedabad (Bopal), Gujarat
+            </span>
+            <button class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" onclick="loadLocationData()">
+                <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- Location Filter Bar -->
+    <div class="card custom-card p-3 border-0 shadow-sm mb-4">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-5">
+                <label class="form-label small fw-bold mb-1"><i class="bi bi-buildings me-1 text-primary"></i> Select City</label>
+                <select class="form-select form-select-sm" id="locCitySelect" onchange="onCityChanged()">
+                    <option value="Ahmedabad" selected>Ahmedabad (Default Benchmark)</option>
+                    <option value="Surat">Surat</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Vadodara">Vadodara</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label class="form-label small fw-bold mb-1"><i class="bi bi-geo me-1 text-danger"></i> Select Locality</label>
+                <select class="form-select form-select-sm" id="locLocalitySelect" onchange="onLocalityChanged()">
+                    <option value="Bopal" selected>Bopal (Primary Default)</option>
+                    <option value="Satellite">Satellite</option>
+                    <option value="Prahlad Nagar">Prahlad Nagar</option>
+                    <option value="Bodakdev">Bodakdev</option>
+                    <option value="SG Highway">SG Highway</option>
+                    <option value="Thaltej">Thaltej</option>
+                    <option value="Gota">Gota</option>
+                    <option value="Vastrapur">Vastrapur</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="button" class="btn btn-primary btn-sm w-100 rounded-pill fw-semibold" onclick="applyLocationFilter()">
+                    <i class="bi bi-search me-1"></i> Inspect Hub
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Summary Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-lg-3">
+            <div class="card custom-card p-3 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">Average Property Price</span>
+                    <i class="bi bi-currency-rupee text-primary fs-5"></i>
+                </div>
+                <div class="fs-4 fw-bold text-dark" id="kpiAvgPrice">₹ --</div>
+                <div class="small text-muted" id="kpiAvgPriceSub">In selected micro-market</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="card custom-card p-3 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">Avg Rate / Sq.Ft.</span>
+                    <i class="bi bi-rulers text-success fs-5"></i>
+                </div>
+                <div class="fs-4 fw-bold text-success" id="kpiAvgRate">₹ --/sq.ft.</div>
+                <div class="small text-muted" id="kpiAvgRateSub">Capital value index</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="card custom-card p-3 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">1-Year Appreciation</span>
+                    <i class="bi bi-graph-up-arrow text-info fs-5"></i>
+                </div>
+                <div class="fs-4 fw-bold text-info" id="kpiGrowth">+11.4%</div>
+                <div class="small text-muted">Annual capital growth</div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="card custom-card p-3 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="small text-muted fw-semibold">Demand Index</span>
+                    <i class="bi bi-fire text-danger fs-5"></i>
+                </div>
+                <div class="fs-4 fw-bold text-danger" id="kpiDemand">88 / 100</div>
+                <div class="small text-muted">High buyer search volume</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts & Infrastructure Row -->
+    <div class="row g-4 mb-4">
+        <!-- Locality Price Comparison Chart -->
+        <div class="col-lg-7">
+            <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5 class="fw-bold mb-1">Locality Price Comparison</h5>
+                        <p class="small text-muted mb-0">Average residential valuations across micro-markets in <span id="chartCityName">Ahmedabad</span></p>
+                    </div>
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 small">In ₹ Lakhs</span>
+                </div>
+                <div style="height: 320px; position: relative;">
+                    <canvas id="localityComparisonChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Neighborhood Infrastructure & Connectivity -->
+        <div class="col-lg-5">
+            <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">Infrastructure & Connectivity</h5>
+                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1 small" id="livabilityBadge">Livability: 4.6 / 5.0</span>
+                </div>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="amenity-score-box">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <i class="bi bi-train-front text-primary fs-5"></i>
+                            <span class="fw-bold small">Metro & Public Transit</span>
+                        </div>
+                        <div class="small text-muted" id="amenityMetro">Direct access to Phase 2 Thaltej-Bopal corridor.</div>
+                    </div>
+
+                    <div class="amenity-score-box">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <i class="bi bi-signpost-split text-info fs-5"></i>
+                            <span class="fw-bold small">Highway & Ring Road Access</span>
+                        </div>
+                        <div class="small text-muted" id="amenityHighway">Seamless connectivity to S.P. Ring Road and SG Highway.</div>
+                    </div>
+
+                    <div class="amenity-score-box">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <i class="bi bi-mortarboard text-warning fs-5"></i>
+                            <span class="fw-bold small">Top Educational Hubs</span>
+                        </div>
+                        <div class="small text-muted" id="amenitySchools">DPS Bopal, Tulip International, Adani University corridor.</div>
+                    </div>
+
+                    <div class="amenity-score-box">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <i class="bi bi-hospital text-danger fs-5"></i>
+                            <span class="fw-bold small">Healthcare & Hospitals</span>
+                        </div>
+                        <div class="small text-muted" id="amenityHospitals">Krishna Heart & Super Speciality, Zydus Hospital network.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Micro-Markets Directory Table / Cards -->
+    <div class="card custom-card p-4 border-0 shadow-sm mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h5 class="fw-bold mb-1">Micro-Market Directory & Valuation Spectrum</h5>
+                <p class="small text-muted mb-0">Comprehensive breakdown of all localities registered in PostgreSQL</p>
+            </div>
+            <a href="{{ url_for('page_prediction') }}" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">
+                <i class="bi bi-calculator me-1"></i> Predict In This Area
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover custom-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Locality</th>
+                        <th>Average Valuation</th>
+                        <th>Capital Rate / Sq.Ft.</th>
+                        <th>Typical Area</th>
+                        <th>Data Sample Count</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="localityTableBody">
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                            Loading micro-market records...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let localityChart = null;
+
+const CITY_LOCALITIES = {
+    "Ahmedabad": ["Bopal", "Satellite", "Prahlad Nagar", "Bodakdev", "SG Highway", "Thaltej", "Gota", "Vastrapur", "Chandkheda", "Navrangpura"],
+    "Surat": ["Adajan", "Vesu", "Pal", "Varachha"],
+    "Mumbai": ["Andheri West", "Bandra West", "Powai", "Borivali West", "Juhu"],
+    "Bangalore": ["Whitefield", "Indiranagar", "Koramangala", "HSR Layout"],
+    "Pune": ["Wakad", "Baner", "Hinjewadi", "Kothrud"],
+    "Delhi": ["Dwarka", "Rohini", "Vasant Kunj", "Saket"],
+    "Vadodara": ["Alkapuri", "Vasna", "Gotri", "Karelibaug"]
+};
+
+function onCityChanged() {
+    const city = document.getElementById("locCitySelect").value;
+    const locSelect = document.getElementById("locLocalitySelect");
+    locSelect.innerHTML = "";
+
+    const locList = CITY_LOCALITIES[city] || ["Central Area"];
+    locList.forEach((loc, idx) => {
+        const opt = document.createElement("option");
+        opt.value = loc;
+        opt.textContent = (city === "Ahmedabad" && loc === "Bopal") ? `${loc} (Default)` : loc;
+        if (idx === 0) opt.selected = true;
+        locSelect.appendChild(opt);
+    });
+
+    loadLocationData();
+}
+
+function onLocalityChanged() {
+    loadLocationData();
+}
+
+function applyLocationFilter() {
+    loadLocationData();
+}
+
+async function loadLocationData() {
+    const city = document.getElementById("locCitySelect").value;
+    const locality = document.getElementById("locLocalitySelect").value;
+    document.getElementById("chartCityName").textContent = city;
+
+    try {
+        const res = await fetch(`/api/location-intelligence?city=${encodeURIComponent(city)}&locality=${encodeURIComponent(locality)}`);
+        const data = await res.json();
+
+        if (!data.success) {
+            showToast(data.message || "Failed to load location intelligence", "danger");
+            return;
+        }
+
+        const selLoc = data.selected_locality || {};
+        const summary = data.city_summary || {};
+        const amenities = data.amenities || {};
+
+        // Update KPIs
+        document.getElementById("kpiAvgPrice").textContent = selLoc.avg_price_formatted || summary.avg_price_formatted || "₹ --";
+        document.getElementById("kpiAvgPriceSub").textContent = `${locality}, ${city}`;
+        document.getElementById("kpiAvgRate").textContent = selLoc.avg_rate_formatted || summary.avg_rate_formatted || "₹ --/sq.ft.";
+        document.getElementById("kpiGrowth").textContent = amenities.appreciation_1yr || "+10.5%";
+        document.getElementById("kpiDemand").textContent = amenities.demand_index || "85/100";
+        document.getElementById("livabilityBadge").textContent = `Livability: ${amenities.livability_rating || "4.6 / 5.0"}`;
+
+        // Update Amenities
+        document.getElementById("amenityMetro").textContent = amenities.metro_status || "Rapid transit coverage available.";
+        document.getElementById("amenityHighway").textContent = amenities.highway_access || "Direct connectivity to arterial roads.";
+        document.getElementById("amenitySchools").textContent = Array.isArray(amenities.schools_colleges) ? amenities.schools_colleges.join(", ") : amenities.schools_colleges;
+        document.getElementById("amenityHospitals").textContent = Array.isArray(amenities.healthcare) ? amenities.healthcare.join(", ") : amenities.healthcare;
+
+        // Render Locality Comparison Chart
+        renderLocalityChart(data.localities || []);
+
+        // Render Table Body
+        renderLocalityTable(data.localities || [], city);
+
+    } catch (err) {
+        console.error("Error loading location intelligence:", err);
+    }
+}
+
+function renderLocalityChart(localities) {
+    const ctx = document.getElementById("localityComparisonChart");
+    if (!ctx) return;
+
+    const labels = localities.map(l => l.locality);
+    const prices = localities.map(l => (l.avg_price / 100000).toFixed(2));
+    const colors = localities.map(l => l.is_active ? "rgba(37, 99, 235, 0.9)" : "rgba(14, 165, 233, 0.65)");
+
+    if (localityChart) {
+        localityChart.destroy();
+    }
+
+    localityChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Average Price (₹ Lakhs)",
+                data: prices,
+                backgroundColor: colors,
+                borderRadius: 6,
+                borderWidth: 0
+            }]
+        },
+        options: {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(c) {
+                            return `Avg Price: ₹ ${c.raw} Lakhs`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: "rgba(226, 232, 240, 0.6)" },
+                    ticks: {
+                        callback: v => `₹ ${v}L`
+                    }
+                },
+                y: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+}
+
+function renderLocalityTable(localities, city) {
+    const tbody = document.getElementById("localityTableBody");
+    if (!tbody) return;
+
+    if (!localities || localities.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No micro-market records found for this location.</td></tr>`;
+        return;
+    }
+
+    let rowsHtml = "";
+    localities.forEach(l => {
+        const highlightClass = l.is_active ? "table-primary fw-semibold" : "";
+        const badgeHtml = (l.locality.toLowerCase() === "bopal") ? `<span class="badge bg-danger ms-2">Default Hub</span>` : "";
+
+        rowsHtml += `
+            <tr class="${highlightClass}">
+                <td>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-geo-alt text-primary me-2"></i>
+                        <span>${l.locality}</span>
+                        ${badgeHtml}
+                    </div>
+                </td>
+                <td class="fw-bold text-dark">${l.avg_price_formatted}</td>
+                <td><span class="badge bg-light text-dark border">${l.avg_rate_formatted}</span></td>
+                <td>${l.avg_area_sqft} sq.ft.</td>
+                <td><span class="badge bg-secondary-subtle text-secondary rounded-pill px-2">${l.count} records</span></td>
+                <td>
+                    <a href="/predict" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1" style="font-size: 0.75rem;">
+                        Predict Here
+                    </a>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = rowsHtml;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadLocationData();
+});
+</script>
+{% endblock %}

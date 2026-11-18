@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}House Price Prediction — PropValuate AI{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <!-- Left Column: Input Form Card -->
+    <div class="col-lg-7">
+        <div class="card custom-card p-4">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <div class="stat-icon primary mb-0" style="width: 40px; height: 40px; font-size: 1.2rem;">
+                    <i class="bi bi-sliders"></i>
+                </div>
+                <div>
+                    <h4 class="fw-bold mb-0">Property Specification</h4>
+                    <p class="small text-muted mb-0">Enter accurate residential parameters to calculate machine learning
+                        valuation</p>
+                </div>
+            </div>
+
+            <!-- Error message container -->
+            <div id="prediction-error" class="alert alert-danger d-none" role="alert"></div>
+
+            <form id="prediction-form" novalidate>
+                <!-- Location Group -->
+                <h6 class="text-uppercase fw-bold text-primary small mb-3 tracking-wider border-bottom pb-2">
+                    <i class="bi bi-geo-alt-fill me-1"></i> Geographic Location
+                </h6>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-5">
+                        <label for="city" class="form-label">City *</label>
+                        <select class="form-select" id="city" name="city" required>
+                            <option value="">Loading Cities...</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="locality" class="form-label">Locality / Area *</label>
+                        <select class="form-select" id="locality" name="locality" required>
+                            <option value="">-- Select Locality --</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="state" class="form-label">State</label>
+                        <input type="text" class="form-control bg-light" id="state" name="state" readonly
+                            placeholder="Auto State">
+                    </div>
+                </div>
+
+                <!-- Dimensions & Layout -->
+                <h6 class="text-uppercase fw-bold text-primary small mb-3 tracking-wider border-bottom pb-2">
+                    <i class="bi bi-aspect-ratio-fill me-1"></i> Space & Configuration
+                </h6>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="area_sqft" class="form-label d-flex justify-content-between">
+                            <span>Super Built-up Area (Sq. Ft.) *</span>
+                            <span class="small text-primary fw-bold" id="area_display"></span>
+                        </label>
+                        <input type="number" class="form-control" id="area_sqft" name="area_sqft" min="200" max="15000"
+                            step="10" value="1250" required>
+                        <input type="range" class="form-range mt-2" id="area_slider" min="300" max="6000" step="25"
+                            value="1250">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="property_type" class="form-label">Property Type *</label>
+                        <select class="form-select" id="property_type" name="property_type" required>
+                            <option value="Apartment" selected>Apartment / High-Rise Flat</option>
+                            <option value="Independent House">Independent House / Builder Floor</option>
+                            <option value="Villa">Independent Villa / Bungalow</option>
+                            <option value="Penthouse">Luxury Penthouse</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 col-6">
+                        <label for="bedrooms" class="form-label">Bedrooms (BHK) *</label>
+                        <select class="form-select" id="bedrooms" name="bedrooms" required>
+                            <option value="1">1 BHK</option>
+                            <option value="2" selected>2 BHK</option>
+                            <option value="3">3 BHK</option>
+                            <option value="4">4 BHK</option>
+                            <option value="5">5 BHK</option>
+                            <option value="6">6+ BHK</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 col-6">
+                        <label for="bathrooms" class="form-label">Bathrooms *</label>
+                        <select class="form-select" id="bathrooms" name="bathrooms" required>
+                            <option value="1">1 Bath</option>
+                            <option value="2" selected>2 Baths</option>
+                            <option value="3">3 Baths</option>
+                            <option value="4">4 Baths</option>
+                            <option value="5">5+ Baths</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 col-6">
+                        <label for="floors" class="form-label">Floor Level *</label>
+                        <input type="number" class="form-control" id="floors" name="floors" min="1" max="60" value="4"
+                            required>
+                    </div>
+
+                    <div class="col-md-3 col-6">
+                        <label for="parking" class="form-label">Parking Spaces *</label>
+                        <select class="form-select" id="parking" name="parking" required>
+                            <option value="0">0 (Street Only)</option>
+                            <option value="1" selected>1 Covered Car</option>
+                            <option value="2">2 Reserved Cars</option>
+                            <option value="3">3+ Spaces</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Attributes & Amenities -->
+                <h6 class="text-uppercase fw-bold text-primary small mb-3 tracking-wider border-bottom pb-2">
+                    <i class="bi bi-shield-check me-1"></i> Condition & Interior
+                </h6>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="furnishing_status" class="form-label">Furnishing Status *</label>
+                        <select class="form-select" id="furnishing_status" name="furnishing_status" required>
+                            <option value="Semi-Furnished" selected>Semi-Furnished (Kitchen + Wardrobes)</option>
+                            <option value="Furnished">Fully Furnished (Turnkey)</option>
+                            <option value="Unfurnished">Unfurnished (Raw)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="property_age" class="form-label">Property Age (Years) *</label>
+                        <select class="form-select" id="property_age" name="property_age" required>
+                            <option value="0" selected>Brand New / Under Construction (0 yrs)</option>
+                            <option value="2">1 - 3 Years</option>
+                            <option value="5">4 - 7 Years</option>
+                            <option value="10">8 - 12 Years</option>
+                            <option value="15">13 - 18 Years</option>
+                            <option value="25">20+ Years</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid mt-4">
+                    <button type="submit" id="predict-btn" class="btn btn-primary btn-lg rounded-pill shadow">
+                        <span id="btn-spinner" class="spinner-border spinner-border-sm me-2 d-none"
+                            role="status"></span>
+                        <span id="btn-text"><i class="bi bi-lightning-charge-fill me-1"></i> Calculate Property
+                            Valuation</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Right Column: Instant Valuation Result Card -->
+    <div class="col-lg-5">
+        <!-- Placeholder before calculation -->
+        <div id="result-placeholder"
+            class="card custom-card p-4 text-center h-100 d-flex flex-column justify-content-center">
+            <div class="my-4">
+                <i class="bi bi-graph-up-arrow text-primary" style="font-size: 4rem;"></i>
+                <h4 class="fw-bold mt-3 mb-2">Instant Valuation Engine</h4>
+                <p class="text-muted small px-3">
+                    Configure your property specifications on the left and click <b>Calculate Property Valuation</b>.
+                    Our Scikit-learn regression models evaluate location indices, area rates, and amenities to produce a
+                    validated estimate in Indian Rupees (₹).
+                </p>
+                <div class="d-inline-flex gap-2">
+                    <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill small">
+                        <i class="bi bi-check-circle-fill text-success me-1"></i> High R² Accuracy
+                    </span>
+                    <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill small">
+                        <i class="bi bi-file-pdf-fill text-danger me-1"></i> PDF Reports
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Result Card (Revealed on submission) -->
+        <div id="result-active" class="valuation-result-box d-none h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="valuation-pill">
+                        <i class="bi bi-award-fill me-1"></i> Validated Valuation
+                    </span>
+                    <span id="res-model-badge" class="badge badge-model">GradientBoostingRegressor</span>
+                </div>
+
+                <!-- Location & Calibrated Reliability Pills -->
+                <div class="d-flex flex-wrap gap-2 my-2">
+                    <span id="res-location-pill" class="badge bg-primary-subtle text-primary border">Ahmedabad, Bopal (Gujarat)</span>
+                    <span id="res-confidence-indicator" class="confidence-indicator">
+                        <i class="bi bi-shield-check text-success me-1"></i> High Confidence (94%)
+                    </span>
+                </div>
+
+                <div class="small text-muted text-uppercase tracking-wider fw-bold mt-2">Estimated Market Value</div>
+                <div id="res-price-formatted" class="valuation-price-main my-1">₹ 0.00 Cr</div>
+                <div id="res-price-exact" class="text-muted small fw-semibold">(₹ 0,00,000)</div>
+
+                <!-- Price per sq. ft. -->
+                <div class="d-flex align-items-center gap-2 mt-3 pt-3 border-top">
+                    <div class="text-muted small">Estimated Rate:</div>
+                    <div id="res-sqft-rate" class="fw-bold text-dark">₹ 0 / sq.ft.</div>
+                </div>
+
+                <!-- Range / Confidence Band -->
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between small text-muted">
+                        <span>Confidence Band (±6.5%):</span>
+                        <span class="fw-bold text-dark"><span id="res-lower-bound">--</span> to <span
+                                id="res-upper-bound">--</span></span>
+                    </div>
+                    <div class="range-bar-container">
+                        <div class="range-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Value Drivers List -->
+                <div class="mt-4">
+                    <div class="small text-uppercase fw-bold text-muted mb-2">Key Valuation Factors:</div>
+                    <ul id="res-drivers-list" class="list-group list-group-flush mb-0"></ul>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-top">
+                <!-- Action Buttons: Download PDF Report -->
+                <div class="d-grid gap-2">
+                    <a id="download-pdf-btn" href="#" class="btn btn-outline-primary rounded-pill fw-semibold disabled">
+                        <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i> Download PDF Valuation Report
+                    </a>
+                </div>
+
+                <!-- Timestamp & Legal Disclaimer -->
+                <div class="mt-3 text-center">
+                    <div class="small text-muted mb-1">
+                        Generated on: <span id="res-timestamp" class="fw-semibold">--</span>
+                    </div>
+                    <p class="small text-muted" style="font-size: 0.75rem; line-height: 1.3;">
+                        <i class="bi bi-info-circle me-1"></i>
+                        <b>Notice:</b> This price estimate is derived by machine learning regression based on market
+                        trends and comparative transactions. It is not an official government valuation or certified
+                        legal appraisal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Featured Properties Catalog — PropValuate AI{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">Residential Property Showcase</h3>
+        <p class="small text-muted mb-0">
+            Browse verified real-estate listings across Ahmedabad, Mumbai, Bangalore, Pune, and Delhi with live valuation insights.
+        </p>
+    </div>
+    <div>
+        <a href="{{ url_for('page_prediction') }}" class="btn btn-primary rounded-pill px-4 shadow-sm fw-semibold">
+            <i class="bi bi-calculator me-1"></i> Custom Valuation
+        </a>
+    </div>
+</div>
+
+<!-- Filters Bar -->
+<div class="card custom-card p-3 mb-4">
+    <div class="row g-2 align-items-center">
+        <div class="col-md-4 col-sm-6">
+            <label class="form-label small fw-bold">Filter by City</label>
+            <select id="prop-filter-city" class="form-select form-select-sm">
+                <option value="">All Indian Cities</option>
+                <option value="Ahmedabad" selected>Ahmedabad (Default)</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Pune">Pune</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Surat">Surat</option>
+                <option value="Vadodara">Vadodara</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <label class="form-label small fw-bold">Property Type</label>
+            <select id="prop-filter-type" class="form-select form-select-sm">
+                <option value="">All Types</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Independent House">Independent House</option>
+                <option value="Villa">Villa</option>
+                <option value="Penthouse">Penthouse</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <label class="form-label small fw-bold">Bedrooms (BHK)</label>
+            <select id="prop-filter-bhk" class="form-select form-select-sm">
+                <option value="">Any BHK</option>
+                <option value="1">1 BHK</option>
+                <option value="2">2 BHK</option>
+                <option value="3">3 BHK</option>
+                <option value="4">4 BHK</option>
+                <option value="5">5+ BHK</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 col-sm-6 d-flex align-items-end">
+            <button id="prop-filter-reset" class="btn btn-outline-secondary btn-sm w-100 rounded-pill">
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Properties Grid -->
+<div id="properties-grid" class="row g-4 mb-4">
+    <div class="col-12 text-center py-5 text-muted">
+        <span class="spinner-border spinner-border-sm me-2"></span> Loading property listings...
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    loadProperties();
+
+    document.getElementById('prop-filter-city').addEventListener('change', loadProperties);
+    document.getElementById('prop-filter-type').addEventListener('change', loadProperties);
+    document.getElementById('prop-filter-bhk').addEventListener('change', loadProperties);
+    document.getElementById('prop-filter-reset').addEventListener('click', () => {
+        document.getElementById('prop-filter-city').value = '';
+        document.getElementById('prop-filter-type').value = '';
+        document.getElementById('prop-filter-bhk').value = '';
+        loadProperties();
+    });
+});
+
+async function loadProperties() {
+    const grid = document.getElementById('properties-grid');
+    const city = document.getElementById('prop-filter-city').value;
+    const type = document.getElementById('prop-filter-type').value;
+    const bhk = document.getElementById('prop-filter-bhk').value;
+
+    const params = new URLSearchParams({
+        city: city,
+        property_type: type,
+        bedrooms: bhk,
+        limit: 18
+    });
+
+    grid.innerHTML = '<div class="col-12 text-center py-5 text-muted"><span class="spinner-border spinner-border-sm me-2"></span> Loading property listings...</div>';
+
+    try {
+        const res = await fetch(`/api/properties?${params.toString()}`);
+        const json = await res.json();
+
+        if (!json.success || json.data.length === 0) {
+            grid.innerHTML = '<div class="col-12 text-center py-5 text-muted"><i class="bi bi-inbox fs-2 d-block mb-2"></i> No property listings found matching your criteria.</div>';
+            return;
+        }
+
+        grid.innerHTML = '';
+        json.data.forEach(item => {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6';
+            col.innerHTML = `
+                <div class="prop-card h-100 d-flex flex-column">
+                    <div class="prop-card-img-wrap">
+                        <img src="${item.image_url}" class="prop-card-img" alt="${item.property_type} in ${item.locality}">
+                        <span class="prop-tag">${item.property_type}</span>
+                        <span class="prop-price-tag">${item.predicted_price_formatted}</span>
+                    </div>
+                    <div class="p-3 d-flex flex-column flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <div>
+                                <h6 class="fw-bold text-dark mb-0">${item.locality}</h6>
+                                <span class="small text-muted">${item.city}, ${item.state}</span>
+                            </div>
+                            <span class="badge bg-light text-muted border">${item.price_per_sqft}</span>
+                        </div>
+
+                        <div class="d-flex justify-content-between text-muted small py-2 my-2 border-top border-bottom">
+                            <span><i class="bi bi-door-open me-1"></i> ${item.bedrooms} BHK</span>
+                            <span><i class="bi bi-droplet me-1"></i> ${item.bathrooms} Bath</span>
+                            <span><i class="bi bi-aspect-ratio me-1"></i> ${item.area_sqft.toLocaleString('en-IN')} sq.ft.</span>
+                        </div>
+
+                        <div class="small text-muted mb-3">
+                            <i class="bi bi-check2 text-success me-1"></i> Condition: <b>${item.furnishing_status}</b>
+                        </div>
+
+                        <div class="mt-auto d-grid">
+                            <a href="/predict?city=${encodeURIComponent(item.city)}&locality=${encodeURIComponent(item.locality)}&bhk=${item.bedrooms}&area=${item.area_sqft}&type=${encodeURIComponent(item.property_type)}" class="btn btn-outline-primary btn-sm rounded-pill fw-semibold">
+                                <i class="bi bi-lightning-charge-fill me-1"></i> Predict Similar Valuation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(col);
+        });
+    } catch (e) {
+        grid.innerHTML = `<div class="col-12 text-center text-danger py-4">Error loading properties: ${e.message}</div>`;
+    }
+}
+</script>
+{% endblock %}
+

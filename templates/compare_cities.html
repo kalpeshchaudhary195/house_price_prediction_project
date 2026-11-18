@@ -1,0 +1,400 @@
+{% extends "base.html" %}
+
+{% block title %}City-to-City Real Estate Comparison — PropValuate AI{% endblock %}
+{% block breadcrumb %}Compare Cities{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- Header & Action -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-bar-chart-steps text-info me-2"></i>City-to-City Real Estate Comparison
+            </h3>
+            <p class="small text-muted mb-0">
+                Macro-level comparison across Indian metropolitan real-estate markets: valuations, capital density, living space, and investment potential.
+            </p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2 rounded-pill small fw-semibold">
+                <i class="bi bi-pin-map-fill me-1"></i> Benchmark: Ahmedabad, Gujarat
+            </span>
+            <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" onclick="fetchCityComparison()">
+                <i class="bi bi-arrow-clockwise me-1"></i> Update Metrics
+            </button>
+        </div>
+    </div>
+
+    <!-- City Selection Cards -->
+    <div class="card custom-card p-3 border-0 shadow-sm mb-4">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-5">
+                <label class="form-label small fw-bold mb-1"><i class="bi bi-buildings text-primary me-1"></i> Primary City</label>
+                <select class="form-select form-select-sm" id="citySelectPrimary" onchange="fetchCityComparison()">
+                    <option value="Ahmedabad" selected>Ahmedabad (Default Benchmark)</option>
+                    <option value="Surat">Surat</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Vadodara">Vadodara</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label class="form-label small fw-bold mb-1"><i class="bi bi-buildings-fill text-success me-1"></i> Comparison City</label>
+                <select class="form-select form-select-sm" id="citySelectSecondary" onchange="fetchCityComparison()">
+                    <option value="Surat" selected>Surat</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Ahmedabad">Ahmedabad</option>
+                    <option value="Vadodara">Vadodara</option>
+                </select>
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="button" class="btn btn-primary btn-sm w-100 rounded-pill fw-semibold" onclick="fetchCityComparison()">
+                    <i class="bi bi-search me-1"></i> Compare Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dual City Overview Cards -->
+    <div class="row g-4 mb-4">
+        <!-- City 1 Card -->
+        <div class="col-lg-6">
+            <div class="card custom-card p-4 border-primary border-2 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h4 class="fw-bold mb-0 text-primary" id="cardCityNameA">Ahmedabad</h4>
+                        <span class="small text-muted">Primary Market</span>
+                    </div>
+                    <span class="badge bg-primary px-3 py-2 rounded-pill fs-6" id="badgePriceA">₹ --</span>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Capital Value Rate</span>
+                            <span class="fw-bold text-dark" id="statRateA">₹ --/sq.ft.</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Average Living Space</span>
+                            <span class="fw-bold text-dark" id="statAreaA">-- sq.ft.</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Typical Configuration</span>
+                            <span class="fw-bold text-dark" id="statBhkA">-- BHK</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Top Prime Hub</span>
+                            <span class="fw-bold text-dark" id="statLocA">Bopal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="small text-muted">
+                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                    Highest affordability & space-to-capital efficiency in western India.
+                </div>
+            </div>
+        </div>
+
+        <!-- City 2 Card -->
+        <div class="col-lg-6">
+            <div class="card custom-card p-4 border-success border-2 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h4 class="fw-bold mb-0 text-success" id="cardCityNameB">Surat</h4>
+                        <span class="small text-muted">Comparative Market</span>
+                    </div>
+                    <span class="badge bg-success px-3 py-2 rounded-pill fs-6" id="badgePriceB">₹ --</span>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Capital Value Rate</span>
+                            <span class="fw-bold text-dark" id="statRateB">₹ --/sq.ft.</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Average Living Space</span>
+                            <span class="fw-bold text-dark" id="statAreaB">-- sq.ft.</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Typical Configuration</span>
+                            <span class="fw-bold text-dark" id="statBhkB">-- BHK</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 border rounded bg-light">
+                            <span class="small text-muted d-block">Top Prime Hub</span>
+                            <span class="fw-bold text-dark" id="statLocB">Vesu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="small text-muted">
+                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                    Rapid commercial expansion and robust residential infrastructure.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparative Visualizations: Bar + Radar -->
+    <div class="row g-4 mb-4">
+        <!-- Direct Pricing & Rate Bar Chart -->
+        <div class="col-lg-6">
+            <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5 class="fw-bold mb-1">Pricing & Rate Comparison</h5>
+                        <p class="small text-muted mb-0">Average Valuation (₹ Lakhs) & Rate/sq.ft. (÷ 100)</p>
+                    </div>
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 small">Bar Analysis</span>
+                </div>
+                <div style="height: 320px; position: relative;">
+                    <canvas id="cityBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Real Estate Multi-Metric Radar Chart -->
+        <div class="col-lg-6">
+            <div class="card custom-card p-4 border-0 shadow-sm h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5 class="fw-bold mb-1">Real Estate Investment Radar</h5>
+                        <p class="small text-muted mb-0">Price Index, Living Space, Affordability, Growth & Rental Yield</p>
+                    </div>
+                    <span class="badge bg-info-subtle text-info rounded-pill px-3 py-1 small">Radar Matrix</span>
+                </div>
+                <div style="height: 320px; position: relative;">
+                    <canvas id="cityRadarChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comparative Table -->
+    <div class="card custom-card p-4 border-0 shadow-sm mb-4">
+        <h5 class="fw-bold mb-3">Comprehensive Metropolitan Real Estate Matrix</h5>
+        <div class="table-responsive">
+            <table class="table table-hover custom-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Metric Dimension</th>
+                        <th class="text-primary fw-bold" id="thCityA" style="width: 35%;">City A</th>
+                        <th class="text-success fw-bold" id="thCityB" style="width: 35%;">City B</th>
+                        <th style="width: 15%;">Market Differential</th>
+                    </tr>
+                </thead>
+                <tbody id="cityTableBody">
+                    <!-- Dynamic -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let cityBarChart = null;
+let cityRadarChart = null;
+let currentCityData = {};
+
+async function fetchCityComparison() {
+    const cityA = document.getElementById("citySelectPrimary").value;
+    const cityB = document.getElementById("citySelectSecondary").value;
+
+    document.getElementById("cardCityNameA").textContent = cityA;
+    document.getElementById("cardCityNameB").textContent = cityB;
+    document.getElementById("thCityA").textContent = cityA;
+    document.getElementById("thCityB").textContent = cityB;
+
+    try {
+        const res = await fetch(`/api/compare-cities?cities=${encodeURIComponent(cityA)},${encodeURIComponent(cityB)}`);
+        const data = await res.json();
+
+        if (data.success && data.cities) {
+            const cA = data.cities.find(c => c.city === cityA) || data.cities[0];
+            const cB = data.cities.find(c => c.city === cityB) || data.cities[1];
+
+            updateCityCards(cA, cB);
+            renderCityBarChart(cA, cB);
+            renderCityRadarChart(cityA, cityB);
+            renderCityTable(cA, cB);
+        }
+    } catch (e) {
+        console.error("City comparison error:", e);
+    }
+}
+
+function updateCityCards(cA, cB) {
+    document.getElementById("badgePriceA").textContent = cA.avg_price_formatted;
+    document.getElementById("statRateA").textContent = cA.avg_rate_formatted;
+    document.getElementById("statAreaA").textContent = `${cA.avg_area_sqft} sq.ft.`;
+    document.getElementById("statBhkA").textContent = `${cA.avg_bhk} BHK`;
+    document.getElementById("statLocA").textContent = cA.top_locality;
+
+    document.getElementById("badgePriceB").textContent = cB.avg_price_formatted;
+    document.getElementById("statRateB").textContent = cB.avg_rate_formatted;
+    document.getElementById("statAreaB").textContent = `${cB.avg_area_sqft} sq.ft.`;
+    document.getElementById("statBhkB").textContent = `${cB.avg_bhk} BHK`;
+    document.getElementById("statLocB").textContent = cB.top_locality;
+}
+
+function renderCityBarChart(cA, cB) {
+    const ctx = document.getElementById("cityBarChart");
+    if (!ctx) return;
+
+    if (cityBarChart) {
+        cityBarChart.destroy();
+    }
+
+    const priceALakhs = (cA.avg_price / 100000).toFixed(2);
+    const priceBLakhs = (cB.avg_price / 100000).toFixed(2);
+
+    const rateAScaled = (cA.avg_rate_sqft / 100).toFixed(1);
+    const rateBScaled = (cB.avg_rate_sqft / 100).toFixed(1);
+
+    cityBarChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Avg Valuation (₹ Lakhs)", "Avg Living Area (sq.ft.)", "Rate / sq.ft. (÷ 100)"],
+            datasets: [
+                {
+                    label: cA.city,
+                    data: [priceALakhs, cA.avg_area_sqft, rateAScaled],
+                    backgroundColor: "rgba(37, 99, 235, 0.85)",
+                    borderRadius: 6
+                },
+                {
+                    label: cB.city,
+                    data: [priceBLakhs, cB.avg_area_sqft, rateBScaled],
+                    backgroundColor: "rgba(16, 185, 129, 0.85)",
+                    borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: "top" }
+            },
+            scales: {
+                y: {
+                    grid: { color: "rgba(226, 232, 240, 0.6)" }
+                }
+            }
+        }
+    });
+}
+
+function renderCityRadarChart(cityA, cityB) {
+    const ctx = document.getElementById("cityRadarChart");
+    if (!ctx) return;
+
+    if (cityRadarChart) {
+        cityRadarChart.destroy();
+    }
+
+    // Benchmark indices for top cities
+    const radarProfiles = {
+        "Ahmedabad": [65, 88, 85, 82, 80],
+        "Mumbai": [95, 35, 40, 75, 92],
+        "Bangalore": [80, 70, 68, 88, 89],
+        "Pune": [72, 75, 74, 80, 84],
+        "Surat": [58, 90, 89, 78, 76],
+        "Delhi": [88, 60, 55, 74, 85],
+        "Vadodara": [52, 92, 92, 75, 72]
+    };
+
+    const categories = ["Price Index", "Living Space Index", "Affordability Score", "1-Yr Appreciation", "Rental Demand"];
+    const dataA = radarProfiles[cityA] || [60, 75, 70, 75, 75];
+    const dataB = radarProfiles[cityB] || [60, 75, 70, 75, 75];
+
+    cityRadarChart = new Chart(ctx, {
+        type: "radar",
+        data: {
+            labels: categories,
+            datasets: [
+                {
+                    label: cityA,
+                    data: dataA,
+                    backgroundColor: "rgba(37, 99, 235, 0.2)",
+                    borderColor: "rgba(37, 99, 235, 0.9)",
+                    pointBackgroundColor: "rgba(37, 99, 235, 1)"
+                },
+                {
+                    label: cityB,
+                    data: dataB,
+                    backgroundColor: "rgba(16, 185, 129, 0.2)",
+                    borderColor: "rgba(16, 185, 129, 0.9)",
+                    pointBackgroundColor: "rgba(16, 185, 129, 1)"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: "rgba(226, 232, 240, 0.8)" },
+                    grid: { color: "rgba(226, 232, 240, 0.8)" },
+                    suggestedMin: 20,
+                    suggestedMax: 100
+                }
+            }
+        }
+    });
+}
+
+function renderCityTable(cA, cB) {
+    const tbody = document.getElementById("cityTableBody");
+    if (!tbody) return;
+
+    const priceDiff = cB.avg_price - cA.avg_price;
+    const rateDiff = cB.avg_rate_sqft - cA.avg_rate_sqft;
+    const areaDiff = cB.avg_area_sqft - cA.avg_area_sqft;
+
+    const rows = [
+        { label: "Average Property Valuation", a: cA.avg_price_formatted, b: cB.avg_price_formatted, diff: `${priceDiff > 0 ? '+' : ''}${formatINR(priceDiff)}` },
+        { label: "Rate per Square Foot", a: cA.avg_rate_formatted, b: cB.avg_rate_formatted, diff: `${rateDiff > 0 ? '+' : ''}₹ ${Math.round(rateDiff).toLocaleString('en-IN')}/sq.ft.` },
+        { label: "Average Unit Space", a: `${cA.avg_area_sqft} sq.ft.`, b: `${cB.avg_area_sqft} sq.ft.`, diff: `${areaDiff > 0 ? '+' : ''}${areaDiff} sq.ft.` },
+        { label: "Typical Unit Configuration", a: `${cA.avg_bhk} BHK`, b: `${cB.avg_bhk} BHK`, diff: `${(cB.avg_bhk - cA.avg_bhk).toFixed(1)} BHK` },
+        { label: "Highest Activity Micro-Market", a: cA.top_locality, b: cB.top_locality, diff: "-" },
+        { label: "Database Records Analyzed", a: `${cA.total_records} listings`, b: `${cB.total_records} listings`, diff: "-" }
+    ];
+
+    tbody.innerHTML = rows.map(r => `
+        <tr>
+            <td class="fw-semibold text-muted">${r.label}</td>
+            <td class="fw-bold text-primary">${r.a}</td>
+            <td class="fw-bold text-success">${r.b}</td>
+            <td><span class="badge bg-light text-dark border">${r.diff}</span></td>
+        </tr>
+    `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetchCityComparison();
+});
+</script>
+{% endblock %}

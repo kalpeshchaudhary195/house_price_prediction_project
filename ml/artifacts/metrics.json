@@ -1,0 +1,944 @@
+{
+  "best_model_name": "Gradient Boosting Regressor",
+  "best_metrics": {
+    "mae": 3486036.09,
+    "mse": 35064693836494.78,
+    "rmse": 5921544.89,
+    "r2_score": 0.9199,
+    "cv_r2_mean": 0.9169,
+    "cv_r2_std": 0.0092,
+    "mae_inr": "Rs. 3,486,036.09",
+    "rmse_inr": "Rs. 5,921,544.89"
+  },
+  "all_models_comparison": {
+    "Gradient Boosting Regressor": {
+      "mae": 3486036.09,
+      "mse": 35064693836494.78,
+      "rmse": 5921544.89,
+      "r2_score": 0.9199,
+      "cv_r2_mean": 0.9169,
+      "cv_r2_std": 0.0092,
+      "mae_inr": "Rs. 3,486,036.09",
+      "rmse_inr": "Rs. 5,921,544.89"
+    },
+    "Random Forest Regressor": {
+      "mae": 3822536.76,
+      "mse": 41989143631194.87,
+      "rmse": 6479903.06,
+      "r2_score": 0.904,
+      "cv_r2_mean": 0.8946,
+      "cv_r2_std": 0.011,
+      "mae_inr": "Rs. 3,822,536.76",
+      "rmse_inr": "Rs. 6,479,903.06"
+    },
+    "XGBoost Regressor": {
+      "mae": 3793527.32,
+      "mse": 38970068219906.93,
+      "rmse": 6242601.08,
+      "r2_score": 0.9109,
+      "cv_r2_mean": 0.9105,
+      "cv_r2_std": 0.0085,
+      "mae_inr": "Rs. 3,793,527.32",
+      "rmse_inr": "Rs. 6,242,601.08"
+    },
+    "Decision Tree Regressor": {
+      "mae": 4636726.88,
+      "mse": 63600079697351.48,
+      "rmse": 7974965.81,
+      "r2_score": 0.8546,
+      "cv_r2_mean": 0.8309,
+      "cv_r2_std": 0.0165,
+      "mae_inr": "Rs. 4,636,726.88",
+      "rmse_inr": "Rs. 7,974,965.81"
+    },
+    "Linear Regression": {
+      "mae": 5445186.27,
+      "mse": 71947352507963.39,
+      "rmse": 8482178.52,
+      "r2_score": 0.8355,
+      "cv_r2_mean": 0.8312,
+      "cv_r2_std": 0.011,
+      "mae_inr": "Rs. 5,445,186.27",
+      "rmse_inr": "Rs. 8,482,178.52"
+    }
+  },
+  "feature_importances": [
+    {
+      "feature": "Area Sqft",
+      "importance": 0.3209
+    },
+    {
+      "feature": "Mumbai",
+      "importance": 0.2735
+    },
+    {
+      "feature": "State Delhi",
+      "importance": 0.052
+    },
+    {
+      "feature": "Delhi",
+      "importance": 0.0508
+    },
+    {
+      "feature": "State Gujarat",
+      "importance": 0.0398
+    },
+    {
+      "feature": "Thane West",
+      "importance": 0.0285
+    },
+    {
+      "feature": "Worli",
+      "importance": 0.0262
+    },
+    {
+      "feature": "Connaught Place",
+      "importance": 0.0209
+    },
+    {
+      "feature": "Juhu",
+      "importance": 0.0161
+    },
+    {
+      "feature": "Rohini",
+      "importance": 0.0151
+    },
+    {
+      "feature": "Is Luxury Type",
+      "importance": 0.0149
+    },
+    {
+      "feature": "Apartment",
+      "importance": 0.0127
+    },
+    {
+      "feature": "Bhk Density",
+      "importance": 0.0124
+    },
+    {
+      "feature": "Borivali West",
+      "importance": 0.011
+    },
+    {
+      "feature": "Bandra West",
+      "importance": 0.0104
+    }
+  ],
+  "actual_vs_predicted_sample": [
+    {
+      "actual": 112557000.0,
+      "predicted": 102419087.99199207,
+      "city": "Mumbai",
+      "locality": "Juhu"
+    },
+    {
+      "actual": 6669000.0,
+      "predicted": 5559382.083213189,
+      "city": "Bangalore",
+      "locality": "Whitefield"
+    },
+    {
+      "actual": 8435000.0,
+      "predicted": 9153802.300912304,
+      "city": "Ahmedabad",
+      "locality": "Bopal"
+    },
+    {
+      "actual": 7276000.0,
+      "predicted": 9278921.397404758,
+      "city": "Hyderabad",
+      "locality": "Kondapur"
+    },
+    {
+      "actual": 10570000.0,
+      "predicted": 9964603.729063278,
+      "city": "Vadodara",
+      "locality": "Vasna"
+    },
+    {
+      "actual": 21125000.0,
+      "predicted": 24688749.441423442,
+      "city": "Bangalore",
+      "locality": "Electronic City"
+    },
+    {
+      "actual": 11180000.0,
+      "predicted": 13819437.499692323,
+      "city": "Pune",
+      "locality": "Kharadi"
+    },
+    {
+      "actual": 35284000.0,
+      "predicted": 35702814.256066866,
+      "city": "Hyderabad",
+      "locality": "Kondapur"
+    },
+    {
+      "actual": 48240000.0,
+      "predicted": 49396122.358529374,
+      "city": "Mumbai",
+      "locality": "Thane West"
+    },
+    {
+      "actual": 8049000.0,
+      "predicted": 10317815.6677494,
+      "city": "Bangalore",
+      "locality": "Whitefield"
+    },
+    {
+      "actual": 36112000.0,
+      "predicted": 41186803.1970865,
+      "city": "Bangalore",
+      "locality": "Bellandur"
+    },
+    {
+      "actual": 86521000.0,
+      "predicted": 79439970.35600735,
+      "city": "Mumbai",
+      "locality": "Bandra West"
+    },
+    {
+      "actual": 15793000.0,
+      "predicted": 13383683.361819917,
+      "city": "Chennai",
+      "locality": "Anna Nagar"
+    },
+    {
+      "actual": 17946000.0,
+      "predicted": 21082631.661755208,
+      "city": "Hyderabad",
+      "locality": "Jubilee Hills"
+    },
+    {
+      "actual": 18306000.0,
+      "predicted": 20016275.70628575,
+      "city": "Chennai",
+      "locality": "Anna Nagar"
+    },
+    {
+      "actual": 5613000.0,
+      "predicted": 7077632.287982803,
+      "city": "Surat",
+      "locality": "Adajan"
+    },
+    {
+      "actual": 12686000.0,
+      "predicted": 12259123.73363267,
+      "city": "Bangalore",
+      "locality": "HSR Layout"
+    },
+    {
+      "actual": 110625000.0,
+      "predicted": 87148304.5192472,
+      "city": "Mumbai",
+      "locality": "Bandra West"
+    },
+    {
+      "actual": 30352000.0,
+      "predicted": 32577834.847440045,
+      "city": "Surat",
+      "locality": "Vesu"
+    },
+    {
+      "actual": 21812000.0,
+      "predicted": 28364496.584528387,
+      "city": "Bangalore",
+      "locality": "HSR Layout"
+    },
+    {
+      "actual": 13046000.0,
+      "predicted": 12687521.189188913,
+      "city": "Ahmedabad",
+      "locality": "Chandkheda"
+    },
+    {
+      "actual": 9204000.0,
+      "predicted": 9458782.986008814,
+      "city": "Vadodara",
+      "locality": "Sama"
+    },
+    {
+      "actual": 40136000.0,
+      "predicted": 31728812.564955957,
+      "city": "Mumbai",
+      "locality": "Powai"
+    },
+    {
+      "actual": 45522000.0,
+      "predicted": 44223626.462097295,
+      "city": "Mumbai",
+      "locality": "Powai"
+    },
+    {
+      "actual": 12158000.0,
+      "predicted": 13469726.426864726,
+      "city": "Surat",
+      "locality": "Vesu"
+    },
+    {
+      "actual": 40318000.0,
+      "predicted": 52672726.934358865,
+      "city": "Hyderabad",
+      "locality": "Jubilee Hills"
+    },
+    {
+      "actual": 18193000.0,
+      "predicted": 15245934.533487922,
+      "city": "Pune",
+      "locality": "Baner"
+    },
+    {
+      "actual": 54932000.0,
+      "predicted": 57188699.62764565,
+      "city": "Delhi",
+      "locality": "Vasant Kunj"
+    },
+    {
+      "actual": 13145000.0,
+      "predicted": 17741932.327679463,
+      "city": "Mumbai",
+      "locality": "Thane West"
+    },
+    {
+      "actual": 25683000.0,
+      "predicted": 33696484.93435973,
+      "city": "Vadodara",
+      "locality": "Sama"
+    },
+    {
+      "actual": 10112000.0,
+      "predicted": 10956217.045076422,
+      "city": "Bangalore",
+      "locality": "HSR Layout"
+    },
+    {
+      "actual": 32780000.0,
+      "predicted": 25501086.74180477,
+      "city": "Mumbai",
+      "locality": "Juhu"
+    },
+    {
+      "actual": 144348000.0,
+      "predicted": 94528718.47489901,
+      "city": "Mumbai",
+      "locality": "Worli"
+    },
+    {
+      "actual": 12023000.0,
+      "predicted": 12453886.271162132,
+      "city": "Bangalore",
+      "locality": "Electronic City"
+    },
+    {
+      "actual": 19238000.0,
+      "predicted": 20809019.726699203,
+      "city": "Kolkata",
+      "locality": "New Town"
+    },
+    {
+      "actual": 10269000.0,
+      "predicted": 12582019.369146075,
+      "city": "Bangalore",
+      "locality": "HSR Layout"
+    },
+    {
+      "actual": 5743000.0,
+      "predicted": 8265506.646167563,
+      "city": "Pune",
+      "locality": "Hinjewadi"
+    },
+    {
+      "actual": 62950000.0,
+      "predicted": 52675584.846438825,
+      "city": "Mumbai",
+      "locality": "Dadar"
+    },
+    {
+      "actual": 10702000.0,
+      "predicted": 14315824.476363966,
+      "city": "Bangalore",
+      "locality": "Electronic City"
+    },
+    {
+      "actual": 18635000.0,
+      "predicted": 13127755.78826112,
+      "city": "Ahmedabad",
+      "locality": "Bodakdev"
+    },
+    {
+      "actual": 32323000.0,
+      "predicted": 32966395.464014042,
+      "city": "Delhi",
+      "locality": "Hauz Khas"
+    },
+    {
+      "actual": 92057000.0,
+      "predicted": 107354834.36112493,
+      "city": "Mumbai",
+      "locality": "Juhu"
+    },
+    {
+      "actual": 12079000.0,
+      "predicted": 13673225.192326987,
+      "city": "Hyderabad",
+      "locality": "Gachibowli"
+    },
+    {
+      "actual": 11388000.0,
+      "predicted": 14608719.937937383,
+      "city": "Chennai",
+      "locality": "OMR"
+    },
+    {
+      "actual": 6556000.0,
+      "predicted": 6993435.837798338,
+      "city": "Surat",
+      "locality": "Adajan"
+    },
+    {
+      "actual": 56280000.0,
+      "predicted": 54047081.893322594,
+      "city": "Mumbai",
+      "locality": "Bandra West"
+    },
+    {
+      "actual": 10684000.0,
+      "predicted": 11892794.360376596,
+      "city": "Pune",
+      "locality": "Hinjewadi"
+    },
+    {
+      "actual": 20749000.0,
+      "predicted": 14323016.685518999,
+      "city": "Delhi",
+      "locality": "Saket"
+    },
+    {
+      "actual": 24292000.0,
+      "predicted": 23848936.27816081,
+      "city": "Ahmedabad",
+      "locality": "Thaltej"
+    },
+    {
+      "actual": 14772000.0,
+      "predicted": 12870951.304327471,
+      "city": "Hyderabad",
+      "locality": "Jubilee Hills"
+    },
+    {
+      "actual": 16706000.0,
+      "predicted": 13963357.86253969,
+      "city": "Pune",
+      "locality": "Baner"
+    },
+    {
+      "actual": 52633000.0,
+      "predicted": 50652927.298838265,
+      "city": "Mumbai",
+      "locality": "Bandra West"
+    },
+    {
+      "actual": 8784000.0,
+      "predicted": 8826848.650059307,
+      "city": "Surat",
+      "locality": "Adajan"
+    },
+    {
+      "actual": 14532000.0,
+      "predicted": 18253858.493317585,
+      "city": "Bangalore",
+      "locality": "Whitefield"
+    },
+    {
+      "actual": 6267000.0,
+      "predicted": 7257283.555653352,
+      "city": "Vadodara",
+      "locality": "Vasna"
+    },
+    {
+      "actual": 8179000.0,
+      "predicted": 6976473.988380509,
+      "city": "Vadodara",
+      "locality": "Alkapuri"
+    },
+    {
+      "actual": 7752000.0,
+      "predicted": 8226177.921190742,
+      "city": "Ahmedabad",
+      "locality": "Bodakdev"
+    },
+    {
+      "actual": 14068000.0,
+      "predicted": 16781443.678410716,
+      "city": "Bangalore",
+      "locality": "Bellandur"
+    },
+    {
+      "actual": 21676000.0,
+      "predicted": 20866964.144842885,
+      "city": "Delhi",
+      "locality": "Dwarka"
+    },
+    {
+      "actual": 88472000.0,
+      "predicted": 69736623.60905038,
+      "city": "Mumbai",
+      "locality": "Worli"
+    },
+    {
+      "actual": 14278000.0,
+      "predicted": 17723202.824832764,
+      "city": "Chennai",
+      "locality": "OMR"
+    },
+    {
+      "actual": 18274000.0,
+      "predicted": 17568117.444631718,
+      "city": "Kolkata",
+      "locality": "Salt Lake"
+    },
+    {
+      "actual": 14454000.0,
+      "predicted": 16640786.709519673,
+      "city": "Hyderabad",
+      "locality": "Madhapur"
+    },
+    {
+      "actual": 21740000.0,
+      "predicted": 19904401.22919285,
+      "city": "Vadodara",
+      "locality": "Karelibaug"
+    },
+    {
+      "actual": 42212000.0,
+      "predicted": 34259102.832864374,
+      "city": "Mumbai",
+      "locality": "Andheri West"
+    },
+    {
+      "actual": 141404000.0,
+      "predicted": 116304577.8615389,
+      "city": "Mumbai",
+      "locality": "Worli"
+    },
+    {
+      "actual": 9474000.0,
+      "predicted": 13451650.84365641,
+      "city": "Ahmedabad",
+      "locality": "Chandkheda"
+    },
+    {
+      "actual": 37764000.0,
+      "predicted": 38766226.599954955,
+      "city": "Pune",
+      "locality": "Wakad"
+    },
+    {
+      "actual": 8950000.0,
+      "predicted": 10395610.842019517,
+      "city": "Pune",
+      "locality": "Hadapsar"
+    },
+    {
+      "actual": 22356000.0,
+      "predicted": 22878093.655082762,
+      "city": "Bangalore",
+      "locality": "Jayanagar"
+    },
+    {
+      "actual": 24977000.0,
+      "predicted": 39553098.19224744,
+      "city": "Pune",
+      "locality": "Hadapsar"
+    },
+    {
+      "actual": 10057000.0,
+      "predicted": 8463768.563753683,
+      "city": "Ahmedabad",
+      "locality": "Satellite"
+    },
+    {
+      "actual": 4692000.0,
+      "predicted": 5657490.26572189,
+      "city": "Ahmedabad",
+      "locality": "Gota"
+    },
+    {
+      "actual": 20247000.0,
+      "predicted": 17531061.500998646,
+      "city": "Hyderabad",
+      "locality": "Hitec City"
+    },
+    {
+      "actual": 8623000.0,
+      "predicted": 9086019.017780183,
+      "city": "Pune",
+      "locality": "Baner"
+    },
+    {
+      "actual": 10103000.0,
+      "predicted": 9671431.13024846,
+      "city": "Surat",
+      "locality": "Adajan"
+    },
+    {
+      "actual": 17943000.0,
+      "predicted": 15748084.105176397,
+      "city": "Delhi",
+      "locality": "Greater Kailash"
+    },
+    {
+      "actual": 11847000.0,
+      "predicted": 8932318.255651874,
+      "city": "Ahmedabad",
+      "locality": "Prahlad Nagar"
+    },
+    {
+      "actual": 20363000.0,
+      "predicted": 17339234.242573705,
+      "city": "Pune",
+      "locality": "Viman Nagar"
+    },
+    {
+      "actual": 7352000.0,
+      "predicted": 7457927.998334007,
+      "city": "Surat",
+      "locality": "Vesu"
+    },
+    {
+      "actual": 4781000.0,
+      "predicted": 4657893.879228996,
+      "city": "Bangalore",
+      "locality": "Electronic City"
+    },
+    {
+      "actual": 28896000.0,
+      "predicted": 33467719.579979397,
+      "city": "Delhi",
+      "locality": "Greater Kailash"
+    },
+    {
+      "actual": 11617000.0,
+      "predicted": 14877790.036315572,
+      "city": "Delhi",
+      "locality": "Dwarka"
+    },
+    {
+      "actual": 29229000.0,
+      "predicted": 25299543.282719716,
+      "city": "Mumbai",
+      "locality": "Thane West"
+    },
+    {
+      "actual": 9995000.0,
+      "predicted": 12824844.693148805,
+      "city": "Bangalore",
+      "locality": "Koramangala"
+    },
+    {
+      "actual": 39089000.0,
+      "predicted": 31050660.727083832,
+      "city": "Delhi",
+      "locality": "Greater Kailash"
+    },
+    {
+      "actual": 14931000.0,
+      "predicted": 13042985.348604698,
+      "city": "Ahmedabad",
+      "locality": "Vastrapur"
+    },
+    {
+      "actual": 12299000.0,
+      "predicted": 15647802.605655607,
+      "city": "Pune",
+      "locality": "Hinjewadi"
+    },
+    {
+      "actual": 15717000.0,
+      "predicted": 17723650.231504172,
+      "city": "Mumbai",
+      "locality": "Powai"
+    },
+    {
+      "actual": 8341000.0,
+      "predicted": 8902670.575822337,
+      "city": "Surat",
+      "locality": "Pal"
+    },
+    {
+      "actual": 18517000.0,
+      "predicted": 14073692.316620296,
+      "city": "Bangalore",
+      "locality": "HSR Layout"
+    },
+    {
+      "actual": 13380000.0,
+      "predicted": 10700435.724693783,
+      "city": "Ahmedabad",
+      "locality": "Satellite"
+    },
+    {
+      "actual": 27411000.0,
+      "predicted": 37691858.033988655,
+      "city": "Hyderabad",
+      "locality": "Jubilee Hills"
+    },
+    {
+      "actual": 21018000.0,
+      "predicted": 16092840.146224855,
+      "city": "Surat",
+      "locality": "City Light"
+    },
+    {
+      "actual": 12016000.0,
+      "predicted": 13987962.020945864,
+      "city": "Chennai",
+      "locality": "OMR"
+    },
+    {
+      "actual": 49418000.0,
+      "predicted": 33278662.507967252,
+      "city": "Mumbai",
+      "locality": "Worli"
+    },
+    {
+      "actual": 9513000.0,
+      "predicted": 9747647.648085512,
+      "city": "Pune",
+      "locality": "Hinjewadi"
+    },
+    {
+      "actual": 10097000.0,
+      "predicted": 11323338.48923129,
+      "city": "Vadodara",
+      "locality": "Gotri"
+    },
+    {
+      "actual": 5985000.0,
+      "predicted": 7277212.5452329395,
+      "city": "Vadodara",
+      "locality": "Sama"
+    },
+    {
+      "actual": 22820000.0,
+      "predicted": 17929801.314391203,
+      "city": "Pune",
+      "locality": "Kothrud"
+    },
+    {
+      "actual": 88492000.0,
+      "predicted": 94043374.73749334,
+      "city": "Mumbai",
+      "locality": "Juhu"
+    },
+    {
+      "actual": 14662000.0,
+      "predicted": 11326619.668103313,
+      "city": "Pune",
+      "locality": "Baner"
+    },
+    {
+      "actual": 32787000.0,
+      "predicted": 33351853.813508075,
+      "city": "Bangalore",
+      "locality": "Bellandur"
+    },
+    {
+      "actual": 13277000.0,
+      "predicted": 15222452.822332337,
+      "city": "Surat",
+      "locality": "Varachha"
+    },
+    {
+      "actual": 79993000.0,
+      "predicted": 64757987.933765754,
+      "city": "Delhi",
+      "locality": "Vasant Kunj"
+    },
+    {
+      "actual": 10281000.0,
+      "predicted": 13036447.049377153,
+      "city": "Pune",
+      "locality": "Hinjewadi"
+    },
+    {
+      "actual": 35714000.0,
+      "predicted": 34988927.81264607,
+      "city": "Mumbai",
+      "locality": "Powai"
+    },
+    {
+      "actual": 49830000.0,
+      "predicted": 56184361.1113435,
+      "city": "Mumbai",
+      "locality": "Dadar"
+    },
+    {
+      "actual": 19996000.0,
+      "predicted": 26560966.79927053,
+      "city": "Mumbai",
+      "locality": "Borivali West"
+    },
+    {
+      "actual": 11263000.0,
+      "predicted": 13273040.489634063,
+      "city": "Bangalore",
+      "locality": "Jayanagar"
+    },
+    {
+      "actual": 8784000.0,
+      "predicted": 13669258.145477306,
+      "city": "Chennai",
+      "locality": "Porur"
+    },
+    {
+      "actual": 4471000.0,
+      "predicted": 5872148.369748192,
+      "city": "Ahmedabad",
+      "locality": "Chandkheda"
+    },
+    {
+      "actual": 7567000.0,
+      "predicted": 7471744.480732897,
+      "city": "Kolkata",
+      "locality": "Ballygunge"
+    },
+    {
+      "actual": 21759000.0,
+      "predicted": 19042271.598724276,
+      "city": "Bangalore",
+      "locality": "Bellandur"
+    },
+    {
+      "actual": 12729000.0,
+      "predicted": 13796600.958568847,
+      "city": "Bangalore",
+      "locality": "Koramangala"
+    },
+    {
+      "actual": 8517000.0,
+      "predicted": 9224778.654120918,
+      "city": "Vadodara",
+      "locality": "Gotri"
+    },
+    {
+      "actual": 39169000.0,
+      "predicted": 44283926.63576651,
+      "city": "Ahmedabad",
+      "locality": "SG Highway"
+    },
+    {
+      "actual": 18222000.0,
+      "predicted": 26162016.694451496,
+      "city": "Kolkata",
+      "locality": "Rajarhat"
+    },
+    {
+      "actual": 9614000.0,
+      "predicted": 11674547.308544235,
+      "city": "Surat",
+      "locality": "Varachha"
+    },
+    {
+      "actual": 23695000.0,
+      "predicted": 20309936.868747044,
+      "city": "Ahmedabad",
+      "locality": "SG Highway"
+    }
+  ],
+  "price_histogram": {
+    "labels": [
+      "Rs. 24-146L",
+      "Rs. 146-268L",
+      "Rs. 268-391L",
+      "Rs. 391-513L",
+      "Rs. 513-635L",
+      "Rs. 635-758L",
+      "Rs. 758-880L",
+      "Rs. 880-1002L",
+      "Rs. 1002-1124L",
+      "Rs. 1124-1247L",
+      "Rs. 1247-1369L",
+      "Rs. 1369-1491L"
+    ],
+    "counts": [
+      2178,
+      1134,
+      491,
+      255,
+      159,
+      83,
+      62,
+      40,
+      24,
+      13,
+      8,
+      7
+    ]
+  },
+  "locality_prices_ahmedabad": {
+    "localities": [
+      "Thaltej",
+      "Satellite",
+      "Prahlad Nagar",
+      "Bodakdev",
+      "SG Highway",
+      "Vastrapur",
+      "Bopal",
+      "Gota",
+      "Chandkheda"
+    ],
+    "avg_prices_lakhs": [
+      152.13,
+      139.62,
+      137.36,
+      136.23,
+      118.02,
+      107.7,
+      92.4,
+      78.18,
+      70.35
+    ],
+    "sample_counts": [
+      73,
+      63,
+      78,
+      81,
+      86,
+      71,
+      75,
+      81,
+      67
+    ]
+  },
+  "monthly_trend": {
+    "labels": [
+      "May 2026",
+      "Jun 2026",
+      "Jul 2026",
+      "Aug 2026",
+      "Sep 2026",
+      "Oct 2026"
+    ],
+    "avg_rates_sqft": [
+      5850,
+      5920,
+      6010,
+      6140,
+      6210,
+      6290
+    ],
+    "prediction_volume": [
+      85,
+      120,
+      160,
+      210,
+      295,
+      380
+    ]
+  },
+  "dataset_size": 4454,
+  "training_size": 3563,
+  "testing_size": 891,
+  "trained_at": "2026-10-31 16:53:35 UTC"
+}

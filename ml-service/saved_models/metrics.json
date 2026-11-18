@@ -1,0 +1,60 @@
+{
+  "best_model": "Random Forest Regressor",
+  "trained_at": "2026-10-30T15:31:10.228295",
+  "dataset_size": 20640,
+  "train_size": 16512,
+  "test_size": 4128,
+  "features": [
+    "longitude",
+    "latitude",
+    "housing_median_age",
+    "total_rooms",
+    "total_bedrooms",
+    "population",
+    "households",
+    "median_income",
+    "ocean_proximity"
+  ],
+  "metrics": {
+    "name": "Random Forest Regressor",
+    "mae": 31628.41,
+    "mse": 2395290032.47,
+    "rmse": 48941.7,
+    "r2_score": 0.8172,
+    "fit_time_seconds": 1.62
+  },
+  "all_models_comparison": {
+    "Random Forest Regressor": {
+      "name": "Random Forest Regressor",
+      "mae": 31628.41,
+      "mse": 2395290032.47,
+      "rmse": 48941.7,
+      "r2_score": 0.8172,
+      "fit_time_seconds": 1.62
+    },
+    "Gradient Boosting Regressor": {
+      "name": "Gradient Boosting Regressor",
+      "mae": 38278.15,
+      "mse": 3125159294.27,
+      "rmse": 55903.12,
+      "r2_score": 0.7615,
+      "fit_time_seconds": 2.62
+    },
+    "Decision Tree Regressor": {
+      "name": "Decision Tree Regressor",
+      "mae": 41586.22,
+      "mse": 4429783968.11,
+      "rmse": 66556.62,
+      "r2_score": 0.662,
+      "fit_time_seconds": 0.14
+    },
+    "Linear Regression": {
+      "name": "Linear Regression",
+      "mae": 50670.49,
+      "mse": 4908290571.35,
+      "rmse": 70059.19,
+      "r2_score": 0.6254,
+      "fit_time_seconds": 0.03
+    }
+  }
+}

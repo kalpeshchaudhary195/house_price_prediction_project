@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback — House Price Prediction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<script defer src="/static/js/main.js"></script>
+<script defer src="/static/js/validation.js"></script>
+</head>
+
+<body>
+
+<!-- CSS-only theme toggle -->
+<input type="checkbox" id="theme-toggle">
+
+<div class="site-wrapper">
+
+<label for="theme-toggle" class="theme-switch" aria-label="Toggle dark mode"><span class="switch-ball"></span></label>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">🏠 House Price Prediction</a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+        <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span><span></span><span></span></label>
+
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/predict">Predict</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/features">Features</a></li>
+            <li><a href="/feedback" class="active">Feedback</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="/login" class="nav-cta">Login / Sign Up</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="page-hero">
+    <div class="container">
+        <span class="hero-eyebrow">Your Voice Matters</span>
+        <h1>We Value Your Feedback</h1>
+        <p class="hero-subtitle">Help us improve the prediction accuracy, user interface, and overall experience by sharing your thoughts.</p>
+    </div>
+</section>
+
+<div class="container">
+
+    <!-- ================= FEEDBACK FORM ================= -->
+    <section class="section">
+        <div class="feedback-layout">
+
+            <form class="card contact-form-card" action="#" method="POST" novalidate id="feedback-form">
+
+                <div class="input-group" style="margin-bottom:18px;">
+                    <label for="fb-name">Full Name *</label>
+                    <input type="text" id="fb-name" name="name" placeholder="Enter your full name" required autocomplete="name">
+                </div>
+
+                <div class="input-group" style="margin-bottom:18px;">
+                    <label for="fb-email">Email Address *</label>
+                    <input type="email" id="fb-email" name="email" placeholder="Enter your email" required autocomplete="email">
+                </div>
+
+                <div class="input-group" style="margin-bottom:18px;">
+                    <label>Rating *</label>
+                    <div class="rating-group">
+                        <label class="rating-option"><input type="radio" name="rating" value="1"> ⭐ 1</label>
+                        <label class="rating-option"><input type="radio" name="rating" value="2"> ⭐⭐ 2</label>
+                        <label class="rating-option"><input type="radio" name="rating" value="3"> ⭐⭐⭐ 3</label>
+                        <label class="rating-option"><input type="radio" name="rating" value="4"> ⭐⭐⭐⭐ 4</label>
+                        <label class="rating-option"><input type="radio" name="rating" value="5" checked> ⭐⭐⭐⭐⭐ 5</label>
+                    </div>
+                </div>
+
+                <div class="input-group" style="margin-bottom:18px;">
+                    <label for="fb-type">Feedback Type *</label>
+                    <select id="fb-type" name="feedback_type" required>
+                        <option value="website">Website Interface</option>
+                        <option value="prediction">Prediction Accuracy</option>
+                        <option value="design">Design &amp; Theme</option>
+                        <option value="performance">Performance &amp; Speed</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="input-group" style="margin-bottom:22px;">
+                    <label for="fb-message">Message *</label>
+                    <textarea id="fb-message" name="message" rows="5" placeholder="Tell us what you think (min 10 characters)..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit Feedback</button>
+
+            </form>
+
+        </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+    <section class="section" style="padding-top:0;">
+        <span class="section-eyebrow">Community</span>
+        <h2 class="section-title">What Users Say</h2>
+        <p class="section-subtitle">A few words from people who have tried the platform.</p>
+
+        <div class="testimonial-grid">
+
+            <div class="card testimonial-card slide-up">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"The prediction dashboard feels genuinely polished — clean layout and easy to read results."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">RS</div>
+                    Riya Sharma
+                </div>
+            </div>
+
+            <div class="card testimonial-card slide-up slide-up-delay-1">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Simple to use and the dark mode toggle is very well crafted. The interactive property slider is smooth!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">AV</div>
+                    Aman Verma
+                </div>
+            </div>
+
+            <div class="card testimonial-card slide-up slide-up-delay-2">
+                <div class="testimonial-stars">⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Great as a portfolio piece — the featured homes slider and forms look production ready."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">PN</div>
+                    Priya Nair
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <div class="footer-logo">🏠 House Price Prediction</div>
+            <p>Smart predictions for your dream home.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/predict">Predict</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/features">Features</a></li>
+                <li><a href="/feedback">Feedback</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Account</h4>
+            <ul>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms &amp; Conditions</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Social</h4>
+            <div class="footer-social">
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="GitHub">gh</a>
+                <a href="#" aria-label="Instagram">ig</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 House Price Prediction. All rights reserved.</p>
+        <p>Powered by Machine Learning • California Housing Dataset</p>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block title %}Advanced Real Estate Analytics Studio (12 Visualizations) — PropValuate AI{% endblock %}
+{% block breadcrumb %}Analytics Studio{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- Header & Dynamic Live Analytics Bar -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="bi bi-pie-chart-fill text-primary me-2"></i>Advanced Real Estate Analytics Studio
+            </h3>
+            <p class="small text-muted mb-0">
+                12 interactive Chart.js visualizations, cross-metro pricing curves, and 5-algorithm machine learning model evaluation.
+            </p>
+        </div>
+
+        <!-- Live Status & Controls -->
+        <div class="d-flex flex-wrap align-items-center gap-2">
+            <!-- Pulsing Live Indicator -->
+            <div id="live-pulse-indicator" class="live-pulse-badge">
+                <span class="pulse-dot"></span>
+                <span>LIVE POLLING</span>
+            </div>
+
+            <!-- Last Updated Timestamp -->
+            <span id="last-updated-timestamp" class="small text-muted fw-semibold px-2">
+                Last updated: Just now
+            </span>
+
+            <!-- Manual Refresh Button -->
+            <button id="refresh-analytics-btn" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" onclick="fetchAndRenderAnalytics()">
+                <i class="bi bi-arrow-clockwise me-1"></i> Refresh Data
+            </button>
+
+            <!-- Auto-Refresh Toggle -->
+            <button id="auto-refresh-toggle" class="btn btn-sm btn-success rounded-pill px-3 fw-semibold" onclick="toggleAutoRefresh()">
+                Auto-Refresh: ON
+            </button>
+
+            <!-- Retrain Model Pipeline -->
+            <button id="retrain-model-btn" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold shadow-sm">
+                <i class="bi bi-cpu-fill me-1"></i> Retrain Model Pipeline
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= ROW 1: 1. City Price & 2. Locality Comparison (Ahmedabad) ================= -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">1. City-Wise Average Property Valuations</h5>
+                    <p class="small text-muted mb-0">Cross-metro valuation comparison across Indian real estate hubs (₹ in Lakhs)</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="cityPriceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5 class="fw-bold mb-0">2. Locality Comparison (Ahmedabad Corridor)</h5>
+                        <p class="small text-muted mb-0">Average prices across Bopal, Bodakdev, Satellite, Vastrapur & SG Highway</p>
+                    </div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 rounded-pill small">Bopal Highlighted</span>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="ahmedabadLocalityChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ROW 2: 3. Area vs Price & 4. Bedroom vs Price ================= -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-7">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">3. Built-Up Area vs House Price Scatter</h5>
+                    <p class="small text-muted mb-0">Super built-up square footage correlation with property price (₹ Lakhs)</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="areaScatterChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">4. Bedroom Configuration (BHK) vs Price</h5>
+                    <p class="small text-muted mb-0">Mean pricing progression from compact 1 BHK units to 5+ BHK residences</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="bedroomChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ROW 3: 5. Property Type & 6. Monthly Prediction Trends ================= -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-5">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">5. Property Type Portfolio Share</h5>
+                    <p class="small text-muted mb-0">Distribution of Apartments, Independent Houses, Villas, and Penthouses</p>
+                </div>
+                <div style="height: 250px; position: relative;">
+                    <canvas id="propertyTypeChart"></canvas>
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="badge bg-light text-muted border px-3 py-1 rounded-pill small">
+                        <i class="bi bi-pie-chart-fill text-primary me-1"></i> Multi-Category Portfolio Mix
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">6. Monthly Prediction Trends & Price Growth</h5>
+                    <p class="small text-muted mb-0">Six-month price per sq.ft. trajectory and valuation request volume</p>
+                </div>
+                <div style="height: 280px; position: relative;">
+                    <canvas id="monthlyTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ROW 4: 7. Actual vs Predicted & 8. Model Comparison ================= -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">7. Actual vs. Predicted Validation Accuracy</h5>
+                    <p class="small text-muted mb-0">Independent test-set evaluation showing alignment with the ideal diagonal</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="actualVsPredChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">8. Multi-Model Regression Benchmark (5 Models)</h5>
+                    <p class="small text-muted mb-0">Comparative R² accuracy scores and MAE (₹ Lakhs) across algorithms</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="modelComparisonChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ROW 5: 9. Feature Importance & 10. Price per Sq.Ft. ================= -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">9. Top Feature Importances (Model Explainability)</h5>
+                    <p class="small text-muted mb-0">Relative weight and impact of property attributes on price prediction</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="featureImportanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">10. Capital Value Efficiency: Price per Sq.Ft.</h5>
+                    <p class="small text-muted mb-0">Average rate per square foot across top cities (₹/sq.ft.)</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="pricePerSqftChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ROW 6: 11. Radar Benchmark & 12. Property Age vs Price ================= -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">11. City-to-City Investment Radar Benchmark</h5>
+                    <p class="small text-muted mb-0">Comparative index covering pricing, space, affordability, growth & rental yield</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="cityRadarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card custom-card p-3 p-lg-4 h-100 border-0 shadow-sm">
+                <div class="mb-3">
+                    <h5 class="fw-bold mb-0">12. Property Age vs Predicted Price Curve</h5>
+                    <p class="small text-muted mb-0">Valuation trajectory comparing newly constructed units against older properties</p>
+                </div>
+                <div style="height: 310px; position: relative;">
+                    <canvas id="ageVsPriceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Metric Cards Breakdown -->
+    <div class="card custom-card p-4 border-0 shadow-sm">
+        <h5 class="fw-bold mb-3">Champion Model Benchmark Summary</h5>
+        <div class="row g-3">
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light">
+                    <div class="small text-muted fw-bold text-uppercase">Champion Algorithm</div>
+                    <div class="fs-5 fw-bold text-primary mt-1" id="sum-champ-name">Gradient Boosting Regressor</div>
+                    <div class="small text-muted">Tuned tree ensemble</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light">
+                    <div class="small text-muted fw-bold text-uppercase">Test R² Score</div>
+                    <div class="fs-5 fw-bold text-success mt-1" id="sum-champ-r2">92.0%</div>
+                    <div class="small text-muted">5-Fold CV: 91.7%</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light">
+                    <div class="small text-muted fw-bold text-uppercase">Mean Absolute Error (MAE)</div>
+                    <div class="fs-5 fw-bold text-dark mt-1" id="sum-champ-mae">₹ 39.7 Lakh</div>
+                    <div class="small text-muted">Average prediction variance</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-3 border rounded-3 bg-light">
+                    <div class="small text-muted fw-bold text-uppercase">Dataset Size</div>
+                    <div class="fs-5 fw-bold text-dark mt-1" id="sum-champ-size">4,500 Records</div>
+                    <div class="small text-muted">Indian Real Estate Comps</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const res = await fetch('/api/model-info');
+        const json = await res.json();
+        if (json.success && json.metrics) {
+            const m = json.metrics;
+            document.getElementById('sum-champ-name').textContent = m.best_model_name;
+            document.getElementById('sum-champ-r2').textContent = (m.best_metrics.r2_score * 100).toFixed(1) + '%';
+            document.getElementById('sum-champ-mae').textContent = m.best_metrics.mae_inr.replace('Rs.', '₹');
+            document.getElementById('sum-champ-size').textContent = `${m.dataset_size.toLocaleString()} Records`;
+        }
+    } catch (e) {
+        console.error('Failed to load model info:', e);
+    }
+});
+</script>
+{% endblock %}

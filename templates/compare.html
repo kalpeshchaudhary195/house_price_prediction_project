@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% block title %}Side-by-Side Property Comparison — PropValuate AI{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h3 class="fw-bold mb-1">Side-by-Side Property Comparison Engine</h3>
+        <p class="small text-muted mb-0">
+            Compare two residential property options to analyze price differentials, rate per square foot, and layout advantages.
+        </p>
+    </div>
+    <span class="badge bg-primary-subtle text-primary border px-3 py-2 rounded-pill small">
+        <i class="bi bi-pin-map-fill me-1"></i> Default Hub: Ahmedabad (Bopal), Gujarat
+    </span>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Option A -->
+    <div class="col-lg-6">
+        <div class="card custom-card p-4 border-primary border-2 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-primary px-3 py-2 rounded-pill fw-bold">Option A</span>
+                <div class="text-end">
+                    <span id="comp-price-a" class="fs-4 fw-bold text-primary">₹ --</span>
+                    <div id="comp-rate-a" class="small text-muted">--</div>
+                </div>
+            </div>
+
+            <form id="form-compare-a">
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">City</label>
+                        <select class="form-select form-select-sm" id="comp-city-a">
+                            <option value="Ahmedabad" selected>Ahmedabad (Default)</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Surat">Surat</option>
+                            <option value="Vadodara">Vadodara</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Locality</label>
+                        <input type="text" class="form-control form-control-sm" id="comp-loc-a" value="Bopal">
+                    </div>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Area (sq.ft.)</label>
+                        <input type="number" class="form-control form-control-sm" id="comp-area-a" value="1350">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Bedrooms (BHK)</label>
+                        <select class="form-select form-select-sm" id="comp-bhk-a">
+                            <option value="1">1 BHK</option>
+                            <option value="2">2 BHK</option>
+                            <option value="3" selected>3 BHK</option>
+                            <option value="4">4 BHK</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Property Type</label>
+                        <select class="form-select form-select-sm" id="comp-type-a">
+                            <option value="Apartment" selected>Apartment</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Independent House">Independent House</option>
+                            <option value="Penthouse">Penthouse</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Furnishing</label>
+                        <select class="form-select form-select-sm" id="comp-furn-a">
+                            <option value="Semi-Furnished" selected>Semi-Furnished</option>
+                            <option value="Furnished">Furnished</option>
+                            <option value="Unfurnished">Unfurnished</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill fw-semibold" onclick="calculateCompare('a')">
+                    <i class="bi bi-calculator me-1"></i> Estimate Option A Valuation
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Option B -->
+    <div class="col-lg-6">
+        <div class="card custom-card p-4 border-success border-2 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-success px-3 py-2 rounded-pill fw-bold">Option B</span>
+                <div class="text-end">
+                    <span id="comp-price-b" class="fs-4 fw-bold text-success">₹ --</span>
+                    <div id="comp-rate-b" class="small text-muted">--</div>
+                </div>
+            </div>
+
+            <form id="form-compare-b">
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">City</label>
+                        <select class="form-select form-select-sm" id="comp-city-b">
+                            <option value="Ahmedabad" selected>Ahmedabad</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Surat">Surat</option>
+                            <option value="Vadodara">Vadodara</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Locality</label>
+                        <input type="text" class="form-control form-control-sm" id="comp-loc-b" value="Bodakdev">
+                    </div>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Area (sq.ft.)</label>
+                        <input type="number" class="form-control form-control-sm" id="comp-area-b" value="1350">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Bedrooms (BHK)</label>
+                        <select class="form-select form-select-sm" id="comp-bhk-b">
+                            <option value="1">1 BHK</option>
+                            <option value="2">2 BHK</option>
+                            <option value="3" selected>3 BHK</option>
+                            <option value="4">4 BHK</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Property Type</label>
+                        <select class="form-select form-select-sm" id="comp-type-b">
+                            <option value="Apartment" selected>Apartment</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Independent House">Independent House</option>
+                            <option value="Penthouse">Penthouse</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold">Furnishing</label>
+                        <select class="form-select form-select-sm" id="comp-furn-b">
+                            <option value="Semi-Furnished" selected>Semi-Furnished</option>
+                            <option value="Furnished">Furnished</option>
+                            <option value="Unfurnished">Unfurnished</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-outline-success btn-sm w-100 rounded-pill fw-semibold" onclick="calculateCompare('b')">
+                    <i class="bi bi-calculator me-1"></i> Estimate Option B Valuation
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Comparative Analysis Chart Box -->
+<div class="card custom-card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h5 class="fw-bold mb-0">Valuation & Rate Differential</h5>
+            <p class="small text-muted mb-0">Visual comparison of Option A vs Option B</p>
+        </div>
+        <div id="comp-diff-badge" class="badge bg-secondary-subtle text-secondary px-3 py-2 rounded-pill">
+            Awaiting Calculation
+        </div>
+    </div>
+    <div style="height: 260px; position: relative;">
+        <canvas id="compareChart"></canvas>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let comparePrices = { a: 0, b: 0 };
+let compareRates = { a: 0, b: 0 };
+let compareChartInstance = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    initCompareChart();
+    // Auto-calculate initial comparisons
+    calculateCompare('a');
+    calculateCompare('b');
+});
+
+function initCompareChart() {
+    const ctx = document.getElementById('compareChart').getContext('2d');
+    compareChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Total Estimated Price (₹ Lakhs)', 'Rate per Sq.Ft. (₹)'],
+            datasets: [
+                {
+                    label: 'Option A (Bopal)',
+                    data: [0, 0],
+                    backgroundColor: 'rgba(37, 99, 235, 0.8)',
+                    borderRadius: 6
+                },
+                {
+                    label: 'Option B (Bodakdev)',
+                    data: [0, 0],
+                    backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                    borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { grid: { color: 'rgba(200, 200, 200, 0.15)' } }
+            }
+        }
+    });
+}
+
+async function calculateCompare(opt) {
+    const city = document.getElementById(`comp-city-${opt}`).value;
+    const locality = document.getElementById(`comp-loc-${opt}`).value;
+    const area = parseFloat(document.getElementById(`comp-area-${opt}`).value) || 1000;
+    const bhk = parseInt(document.getElementById(`comp-bhk-${opt}`).value) || 2;
+    const propType = document.getElementById(`comp-type-${opt}`).value;
+    const furnishing = document.getElementById(`comp-furn-${opt}`).value;
+
+    const stateMap = {
+        'Ahmedabad': 'Gujarat', 'Surat': 'Gujarat', 'Vadodara': 'Gujarat',
+        'Mumbai': 'Maharashtra', 'Pune': 'Maharashtra',
+        'Bangalore': 'Karnataka', 'Delhi': 'Delhi',
+        'Hyderabad': 'Telangana', 'Chennai': 'Tamil Nadu', 'Kolkata': 'West Bengal'
+    };
+
+    const payload = {
+        city: city,
+        locality: locality,
+        state: stateMap[city] || 'Gujarat',
+        area_sqft: area,
+        bedrooms: bhk,
+        bathrooms: Math.max(1, bhk - 1),
+        floors: 3,
+        parking: 1,
+        property_age: 2,
+        furnishing_status: furnishing,
+        property_type: propType
+    };
+
+    try {
+        const res = await fetch('/api/predict', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+        const json = await res.json();
+        if (json.success) {
+            const data = json.data;
+            document.getElementById(`comp-price-${opt}`).textContent = data.predicted_price_formatted;
+            document.getElementById(`comp-rate-${opt}`).textContent = `Rate: ${data.price_per_sqft_formatted}`;
+
+            comparePrices[opt] = data.predicted_price / 100000.0;
+            compareRates[opt] = data.price_per_sqft;
+
+            updateCompareChart();
+        }
+    } catch (e) {
+        console.error('Error estimating comparison:', e);
+    }
+}
+
+function updateCompareChart() {
+    if (!compareChartInstance) return;
+
+    compareChartInstance.data.datasets[0].data = [
+        Math.round(comparePrices.a),
+        Math.round(compareRates.a)
+    ];
+    compareChartInstance.data.datasets[1].data = [
+        Math.round(comparePrices.b),
+        Math.round(compareRates.b)
+    ];
+    compareChartInstance.update();
+
+    if (comparePrices.a > 0 && comparePrices.b > 0) {
+        const diff = Math.abs(comparePrices.a - comparePrices.b);
+        const higher = comparePrices.a > comparePrices.b ? 'Option A' : 'Option B';
+        const badge = document.getElementById('comp-diff-badge');
+        if (badge) {
+            badge.className = 'badge bg-primary text-white px-3 py-2 rounded-pill';
+            badge.textContent = `${higher} is ₹ ${diff.toFixed(2)} Lakh higher`;
+        }
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Features &amp; ML Architecture — House Price Prediction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<script defer src="/static/js/main.js"></script>
+<script defer src="/static/js/validation.js"></script>
+</head>
+
+<body>
+
+<!-- CSS-only theme toggle -->
+<input type="checkbox" id="theme-toggle">
+
+<div class="site-wrapper">
+
+<label for="theme-toggle" class="theme-switch" aria-label="Toggle dark mode"><span class="switch-ball"></span></label>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">🏠 House Price Prediction</a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+        <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span><span></span><span></span></label>
+
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/predict">Predict</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/features" class="active">Features</a></li>
+            <li><a href="/feedback">Feedback</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="/login" class="nav-cta">Login / Sign Up</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ================= PAGE HEADER ================= -->
+<header class="page-header">
+    <div class="container">
+        <span class="hero-eyebrow">Machine Learning Attributes</span>
+        <h1 style="font-size:34px;">Features &amp; Model Architecture</h1>
+        <p class="section-subtitle center">Discover the 9 key features analyzed by our California Housing regression model to evaluate property values accurately.</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- ================= FEATURES GRID ================= -->
+    <section class="section">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+
+            <div class="card slide-up">
+                <div style="font-size: 28px; margin-bottom: 12px;">💵</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">1. Median Income (MedInc)</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">Median household income in tens of thousands of USD. The single highest-correlated predictor with house prices in California census blocks.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: Highest (★ ★ ★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up slide-up-delay-1">
+                <div style="font-size: 28px; margin-bottom: 12px;">⏳</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">2. House Age (HouseAge)</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">Median age of structures in the block group in years. Influences depreciation, structural integrity, and architectural heritage.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: Moderate (★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up slide-up-delay-2">
+                <div style="font-size: 28px; margin-bottom: 12px;">🛋️</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">3. Average Rooms (AveRooms)</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">Average number of total rooms per household unit. Reflects living space, layout breadth, and overall floor area.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: High (★ ★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up">
+                <div style="font-size: 28px; margin-bottom: 12px;">🛏️</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">4. Average Bedrooms (AveBedrms)</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">Average number of dedicated bedrooms per home. Evaluates family accommodation capacity vs. living space ratio.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: Moderate (★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up slide-up-delay-1">
+                <div style="font-size: 28px; margin-bottom: 12px;">👥</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">5. Block Population (Population)</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">Total resident count in the census tract block group. Helps detect high-density urban corridors vs quiet suburban zones.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: Moderate (★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up slide-up-delay-2">
+                <div style="font-size: 28px; margin-bottom: 12px;">👨‍👩‍👧</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">6. Average Occupancy (AveOccup)</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">Average household size. High density per unit typically correlates with rental properties or multi-family residences.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: Moderate (★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up">
+                <div style="font-size: 28px; margin-bottom: 12px;">📍</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">7. Latitude Coordinate</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">North-South coordinate in California (32.0° to 43.0°). Distinguishes Southern California (LA, San Diego) from Northern California (Bay Area).</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: High (★ ★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up slide-up-delay-1">
+                <div style="font-size: 28px; margin-bottom: 12px;">🌐</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">8. Longitude Coordinate</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">East-West coordinate in California (-125.0° to -114.0°). Captures coastal corridors versus interior desert/valley zones.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: High (★ ★ ★ ★)</div>
+            </div>
+
+            <div class="card slide-up slide-up-delay-2">
+                <div style="font-size: 28px; margin-bottom: 12px;">🌊</div>
+                <h3 style="font-size: 18px; margin-bottom: 8px;">9. Ocean Proximity</h3>
+                <p style="color:var(--text-muted); font-size: 14px; line-height: 1.6;">Categorical proximity (NEAR BAY, NEAR OCEAN, 1H OCEAN, INLAND, ISLAND). Premium coastlines command substantial price surges.</p>
+                <div style="margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--primary);">Importance: Critical (★ ★ ★ ★ ★)</div>
+            </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 48px;">
+            <a href="home.html#predict-section" class="btn btn-primary" style="padding: 14px 32px; font-size: 16px;">🔮 Test the Model on Home Page</a>
+        </div>
+    </section>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <div class="footer-logo">🏠 House Price Prediction</div>
+            <p>Smart predictions for your dream home.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/predict">Predict</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/features">Features</a></li>
+                <li><a href="/feedback">Feedback</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Account</h4>
+            <ul>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms &amp; Conditions</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Social</h4>
+            <div class="footer-social">
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="GitHub">gh</a>
+                <a href="#" aria-label="Instagram">ig</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 House Price Prediction. All rights reserved.</p>
+        <p>Powered by Machine Learning • California Housing Dataset</p>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>

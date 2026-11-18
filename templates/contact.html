@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — House Price Prediction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/style.css">
+<script defer src="/static/js/main.js"></script>
+<script defer src="/static/js/validation.js"></script>
+</head>
+
+<body>
+
+<!-- CSS-only theme toggle -->
+<input type="checkbox" id="theme-toggle">
+
+<div class="site-wrapper">
+
+<label for="theme-toggle" class="theme-switch" aria-label="Toggle dark mode"><span class="switch-ball"></span></label>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">🏠 House Price Prediction</a>
+
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+        <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span><span></span><span></span></label>
+
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/predict">Predict</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/features">Features</a></li>
+            <li><a href="/feedback">Feedback</a></li>
+            <li><a href="/contact" class="active">Contact</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="/login" class="nav-cta">Login / Sign Up</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="page-hero">
+    <div class="container">
+        <span class="hero-eyebrow">Get in Touch</span>
+        <h1>We'd Love to Hear From You</h1>
+        <p class="hero-subtitle">Have a question about the prediction model, found a bug, or just want to chat? Reach out anytime.</p>
+    </div>
+</section>
+
+<div class="container">
+
+    <section class="section">
+
+        <!-- ================= CONTACT INFO CARDS ================= -->
+        <div class="contact-cards">
+            <div class="card contact-card slide-up">
+                <div class="contact-icon">📧</div>
+                <h3>Email</h3>
+                <a href="mailto:support@houseprediction.com">support@houseprediction.com</a>
+            </div>
+            <div class="card contact-card slide-up slide-up-delay-1">
+                <div class="contact-icon">📞</div>
+                <h3>Phone</h3>
+                <a href="tel:+917984951326">+91 79849 51326</a>
+            </div>
+            <div class="card contact-card slide-up slide-up-delay-2">
+                <div class="contact-icon">📍</div>
+                <h3>Location</h3>
+                <p>Ahmedabad, Gujarat, India</p>
+            </div>
+        </div>
+
+        <!-- ================= MAP EMBED ================= -->
+        <div class="card" style="padding:0; overflow:hidden; margin-top:24px;">
+            <iframe
+                src="https://maps.google.com/maps?q=23.0881262,72.5266064&z=15&output=embed"
+                width="100%"
+                height="350"
+                style="border:0; display:block;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Our location on Google Maps">
+            </iframe>
+        </div>
+
+        <!-- ================= CONTACT FORM + FAQ ================= -->
+        <div class="contact-layout">
+
+            <form class="card contact-form-card" action="#" method="POST" novalidate id="contact-form">
+                <h2 style="font-size:20px; margin-bottom:20px;">Send a Message</h2>
+
+                <div class="input-group" style="margin-bottom:18px;">
+                    <label for="c-name">Your Name *</label>
+                    <input type="text" id="c-name" name="name" placeholder="Enter your full name" required autocomplete="name">
+                </div>
+
+                <div class="input-group" style="margin-bottom:18px;">
+                    <label for="c-email">Your Email *</label>
+                    <input type="email" id="c-email" name="email" placeholder="Enter your email address" required autocomplete="email">
+                </div>
+
+                <div class="input-group" style="margin-bottom:18px;">
+                    <label for="c-subject">Subject *</label>
+                    <input type="text" id="c-subject" name="subject" placeholder="What is this regarding?" required>
+                </div>
+
+                <div class="input-group" style="margin-bottom:22px;">
+                    <label for="c-message">Message *</label>
+                    <textarea id="c-message" name="message" rows="5" placeholder="Write your message here (min 10 characters)..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+            </form>
+
+            <div class="card" style="padding:32px;">
+                <h2 style="font-size:20px; margin-bottom:16px;">Frequently Asked Questions</h2>
+
+                <details class="faq-item">
+                    <summary>How does the prediction work?</summary>
+                    <p>You enter details like income, rooms and location, and a Machine Learning regression model trained on housing data estimates the price.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Which dataset is used?</summary>
+                    <p>The platform is built around the California Housing Dataset, a well-known dataset for price-prediction tasks.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Is the prediction accurate?</summary>
+                    <p>Predictions are estimates for demonstration purposes and should not be treated as a guaranteed market value.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Can I use the website on mobile?</summary>
+                    <p>Yes, the entire interface is fully responsive across desktop, tablet and mobile devices.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Does the website store my data?</summary>
+                    <p>This is a static HTML/CSS project — forms are validated on the client side and do not persist sensitive data without consent.</p>
+                </details>
+            </div>
+
+        </div>
+
+        <!-- ======= TEAM ========= -->
+        <div class="team-grid">
+
+            <div class="card team-card">
+                <div class="team-avatar">KC</div>
+                <h3>Kalpesh Chaudhary</h3>
+                <div class="team-role">Co-Founder</div>
+                <div class="team-detail">📞 <a href="tel:+917984951326">+91 79849 51326</a></div>
+                <div class="team-detail">✉️ <a href="mailto:kalpeshchaudhary159@gmail.com">kalpeshchaudhary159@gmail.com</a></div>
+            </div>
+
+            <div class="card team-card">
+                <div class="team-avatar">KP</div>
+                <h3>Karm Patel</h3>
+                <div class="team-role">Co-Founder</div>
+                <div class="team-detail">📞 <a href="tel:+916351951312">+91 63519 51312</a></div>
+                <div class="team-detail">✉️ <a href="mailto:karmpatel12@gmail.com">karmpatel12@gmail.com</a></div>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- ======= FOOTER ======= -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <div class="footer-logo">🏠 House Price Prediction</div>
+            <p>Smart predictions for your dream home.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/predict">Predict</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/features">Features</a></li>
+                <li><a href="/feedback">Feedback</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Account</h4>
+            <ul>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <ul>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms &amp; Conditions</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Social</h4>
+            <div class="footer-social">
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="GitHub">gh</a>
+                <a href="#" aria-label="Instagram">ig</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 House Price Prediction. All rights reserved.</p>
+        <p>Powered by Machine Learning • California Housing Dataset</p>
+    </div>
+</footer>
+
+</div>
+
+</body>
+</html>
